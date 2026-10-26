@@ -6,6 +6,7 @@ Verilen dört sayfalık öğretmen çarşaf programından yeniden üretilmiş ha
 - 1.347 öğretmen ataması, 1.264 ayrı ders; 83 derste iki öğretmen birlikte yer alır.
 - 87 MESEM ataması eksiksiz korunur. Kaynak PDF’deki iki boş derslik tahmin edilmez.
 - Gün, saat, **yalnızca 9, 10, 11, 12. sınıf düzeyi** ve öğretmen filtreleri.
+- Mobilde 60 px yüksekliğinde, en az 17 px yazılı açılır menüler. Sınıf ve öğretmen kartın ana bilgileri; derslik büyük ve belirgin, saat/ders kodu ikincil boyuttadır. Açıklama blokları ve PDF sayfa/satır etiketleri gösterilmez.
 - Ortak kültür dersleri 10-A ve 10-D gibi ayrı şube kartlarında aynı öğretmenle gösterilir. Birleşik grup kodları menüde yer almaz; meslek/atölye dersleri ilgili şubenin kartına taşınır.
 - Türkiye saat dilimine göre ders içi, ders arası, ders öncesi/sonrası ve hafta sonu ayrımı.
 - CSS, JavaScript ve veri `index.html` içinde gömülüdür. CDN, harici font, sunucu veya çalışma zamanı kurulumu gerekmez. HTML dosyasını tarayıcıda açabilirsiniz.
@@ -28,7 +29,7 @@ Menüde yalnızca **9, 10, 11 ve 12** vardır. Seçilen düzeyin normal şubeler
 | 12-B / 12-G | 12B-G → 12-G |
 | 12-C / 12-D | 12C-D → 12-D |
 
-Tesisat grupları (9C-İ, 10C-İ, 11C-İ, 12C-İ) kendi C şubelerinde grup notuyla gösterilir. 11-A1 ve 11-A2 ayrı şubeler olarak korunur. Kültür dersi kod listeleri `app-core.js` içinde açıkça tanımlıdır; meslek dersleri kültür dersi gibi diğer şubeye kopyalanmaz. Sonuç sayacı **sınıf kaydı** ile **ayrı ders** sayısını ayrı tutar. 1.264 kaynak ders, 1.403 şube kartı olarak gösterilir; 41 farklı şube/MESEM sınıfı vardır. Öğretmenin haftalık toplamı kaynak atamalardan hesaplanır.
+Tesisat grupları (9C-İ, 10C-İ, 11C-İ, 12C-İ) kendi C şubelerinde grup notuyla gösterilir. 11-A1 ve 11-A2 ayrı şubeler olarak korunur. Kültür dersi kod listeleri `app-core.js` içinde açıkça tanımlıdır; meslek dersleri kültür dersi gibi diğer şubeye kopyalanmaz. Kısa sonuç sayacı gösterilen şube kartlarının sayısını gösterir. 1.264 kaynak ders, 1.403 şube kartı olarak gösterilir; 41 farklı şube/MESEM sınıfı vardır. Öğretmenin haftalık toplamı kaynak atamalardan hesaplanır.
 
 Önceki JSON şeması yerine `schema_version: 2` kullanılır. `assignments` kaynak hücreleri, `lessons` aynı dersi birlikte veren öğretmenleri içerir. Her atamada kaynak sayfa, öğretmen satırı, ders sütunu ve hücre koordinatları saklanır. JSON verinin tek kaynağıdır; HTML bu dosyadan üretilir.
 
@@ -64,7 +65,7 @@ node tests/test_app.cjs
 
 `tests/pdf-reference.json`, uygulama verisinden kopyalanmaz: bağımsız pypdf çözücüsünün doğrudan PDF’den okuduğu referanstır. Şube eşleştirmelerinin test sözleşmesi ayrıca `tests/class-view-reference.json` içinde bulunur. Testler 3.600 dolu/boş hücreyi, 24.090 gün/saat/düzey/öğretmen birleşimini, 1.403 şube kartının kaynak bağlantısını, 139 ortak kültür çiftini, haftanın 10.080 dakikasını, 5.082 arayüz birleşimini ve kasıtlı bozulmuş veri örneklerini denetler.
 
-`tests/mobile-preview.html` 390 piksel genişliğinde görsel kontrol içindir. Kaynak veriyi değiştirmez. Test sonuçları ilgili `*-verification.json` dosyalarındadır.
+`tests/mobile-preview.html` ve `tests/mobile-preview-320.html` sırasıyla 390 ve 320 piksel genişliğinde görsel kontrol içindir. Kaynak veriyi değiştirmez. Test sonuçları ilgili `*-verification.json` dosyalarındadır.
 
 ## Canlı yayın
 

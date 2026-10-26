@@ -11,6 +11,7 @@
     "clock_second_boundaries_and_timezone": 9,
     "offline_build_and_embedded_integrity": 8,
     "actual_embedded_ui_combinations": 5082,
-    "ui_regressions": 13
+    "ui_regressions": 13,
+    "simplified_card_and_status_regressions": 8
   }
 }

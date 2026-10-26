@@ -7,7 +7,6 @@
   const view = core.classView(data);
   const esc = core.escapeHtml;
   const teachers = new Map(data.teachers.map(t => [t.id, t]));
-  const assignments = new Map(data.assignments.map(a => [a.id, a]));
 
   function option(value, text) {
     const element = document.createElement('option');
@@ -17,11 +16,9 @@
   }
 
   function populate() {
-    $('school-stats').textContent = `${data.teachers.length} öğretmen · ${view.classes.length} sınıf · ${data.lessons.length.toLocaleString('tr-TR')} ders`;
-    $('source-info').textContent = `${data.source.filename} · ${data.source.pages} sayfa`;
     $('filter-day').appendChild(option('ALL', 'Tüm günler'));
     data.days.forEach(day => $('filter-day').appendChild(option(day, day)));
-    $('filter-class').appendChild(option('ALL', 'Tüm sınıf düzeyleri'));
+    $('filter-class').appendChild(option('ALL', 'Tüm sınıflar'));
     view.grades.forEach(grade => $('filter-class').appendChild(option(grade, `${grade}. sınıf`)));
     $('filter-teacher').appendChild(option('ALL', 'Tüm öğretmenler'));
     [...data.teachers].sort((a, b) => a.name.localeCompare(b.name, 'tr')).forEach(t => {
@@ -44,17 +41,14 @@
   }
 
   function renderCard(lesson) {
-    const shared = lesson.teacher_ids.length > 1;
-    const teacherRows = lesson.assignment_ids.map(id => {
-      const assignment = assignments.get(id);
-      const teacher = teachers.get(assignment.teacher_id);
-      return `<li><span class="teacher-name">${esc(teacher.name)}</span><span class="source-tag">PDF s.${assignment.source.page} · satır ${assignment.source.row}</span></li>`;
+    const teacherRows = lesson.teacher_ids.map(id => {
+      const teacher = teachers.get(id);
+      return `<li><span class="teacher-name">${esc(teacher.name)}</span></li>`;
     }).join('');
     return `<article class="lesson-card" data-lesson-id="${esc(lesson.id)}">
-      <div class="card-top"><span class="class-badge">${esc(lesson.c)}</span><span class="card-day">${esc(lesson.d)} · ${lesson.p}. ders</span><span class="card-time">${esc(core.timeRange(data, lesson))}</span></div>
-      <div class="card-body"><div><p class="eyebrow">DERS KODU</p><h2>${esc(lesson.l)}</h2></div><div class="room ${lesson.r ? '' : 'room-unknown'}">${lesson.r ? `Derslik: ${esc(lesson.r)}` : 'Derslik PDF’de belirtilmemiş'}</div></div>
-      ${lesson.culture_classes.length ? `<p class="branch-note">Ortak kültür dersi · ${esc(lesson.culture_classes.join(' / '))}</p>` : lesson.group_label ? `<p class="branch-note">${esc(lesson.group_label)}</p>` : ''}
-      <div class="teachers"><p class="teacher-label">${shared ? 'Birlikte derse giren öğretmenler' : 'Ders öğretmeni'}${shared ? '<span class="shared-badge">Ortak ders</span>' : ''}</p><ul>${teacherRows}</ul></div>
+      <div class="card-top"><span class="class-badge">${esc(lesson.c)}</span><div class="room ${lesson.r ? '' : 'room-unknown'}"${lesson.r ? '' : ' aria-label="Derslik belirtilmemiş"'}><span class="room-label">Derslik</span><strong class="room-value">${lesson.r ? esc(lesson.r) : '—'}</strong></div></div>
+      <div class="teachers"><ul>${teacherRows}</ul></div>
+      <div class="lesson-details"><span class="card-day">${esc(lesson.d)} · ${lesson.p}. ders</span><span class="card-time">${esc(core.timeRange(data, lesson))}</span><h2 class="lesson-code">${esc(lesson.l)}</h2></div>
     </article>`;
   }
 
@@ -63,25 +57,27 @@
     const list = core.filterLessons(data, filters);
     const day = filters.day === 'ALL' ? 'Tüm günler' : filters.day;
     const period = filters.period === 'ALL' ? 'Tüm saatler' : `${filters.period}. ders`;
-    const className = filters.grade === 'ALL' ? 'Tüm sınıf düzeyleri' : `${filters.grade}. sınıf`;
+    const className = filters.grade === 'ALL' ? 'Tüm sınıflar' : `${filters.grade}. sınıf`;
     const teacher = filters.teacher === 'ALL' ? null : teachers.get(filters.teacher);
-    $('filter-summary').textContent = `${day} · ${period} · ${className}${teacher ? ' · ' + teacher.name : ''}`;
-    const distinctLessons = new Set(list.map(item => item.source_lesson_id));
-    $('result-count').textContent = `${list.length} sınıf kaydı · ${distinctLessons.size} ders`;
+    $('filter-summary').textContent = `${day} · ${period} · ${className}`;
+    $('result-count').textContent = `${list.length} sonuç`;
     $('results-container').innerHTML = list.map(renderCard).join('');
     $('empty-state').hidden = list.length > 0;
     $('empty-description').textContent = teacher && teacher.total_hours === 0
-      ? `${teacher.name} için kaynak PDF’deki öğretmen satırı boş. Ders ataması eklenmedi.`
-      : 'Seçilen gün, saat, sınıf düzeyi ve öğretmen için ders kaydı bulunmuyor.';
-    $('teacher-info').hidden = !teacher;
-    if (teacher) $('teacher-info').textContent = `${teacher.name}: haftalık ${teacher.total_hours} ders saati. Ortak kültür derslerinin sınıf kartları aynı ders saatini paylaşır.`;
+      ? 'Bu öğretmen için ders kaydı yok.'
+      : 'Bu seçimde ders kaydı yok.';
   }
 
   function selectCurrent() {
     const selection = core.currentSelection(data);
     $('filter-day').value = selection.day;
     updatePeriods(selection.period);
-    $('current-status').textContent = selection.message;
+    const messages = {before: 'Dersler henüz başlamadı.',
+      break: 'Ders arası · sıradaki ders gösteriliyor.',
+      after: 'Dersler bitti · günün tamamı gösteriliyor.',
+      weekend: 'Hafta sonu · tüm hafta gösteriliyor.'};
+    $('current-status').textContent = messages[selection.kind] || '';
+    $('current-status').hidden = selection.kind === 'lesson';
     $('current-status').dataset.kind = selection.kind;
     render();
   }
@@ -90,7 +86,8 @@
   ['filter-day', 'filter-period', 'filter-class', 'filter-teacher'].forEach(id => {
     $(id).addEventListener('change', () => {
       if (id === 'filter-day') updatePeriods();
-      $('current-status').textContent = 'Seçilen haftalık ders programı gösteriliyor.';
+      $('current-status').hidden = true;
+      $('current-status').textContent = '';
       $('current-status').dataset.kind = 'manual';
       render();
     });
@@ -101,7 +98,8 @@
     $('filter-class').value = 'ALL';
     $('filter-teacher').value = 'ALL';
     updatePeriods('ALL');
-    $('current-status').textContent = 'Haftalık ders programının tamamı gösteriliyor.';
+    $('current-status').hidden = true;
+    $('current-status').textContent = '';
     $('current-status').dataset.kind = 'manual';
     render();
   });

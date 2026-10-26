@@ -166,7 +166,7 @@ function verifyUI() {
   const actual = renderedIds().map(id => tuple(byViewId.get(id)));
   assert.deepEqual(new Set(actual), reference);
   assert.equal(nodes['empty-state'].hidden, actual.length > 0);
-  assert(nodes['result-count'].textContent.startsWith(`${actual.length} sınıf kaydı`));
+  assert.equal(nodes['result-count'].textContent, `${actual.length} sonuç`);
   uiChecks++;
 }
 for (const day of ['ALL', ...data.days]) {
@@ -189,19 +189,20 @@ report.checks.actual_embedded_ui_combinations = uiChecks;
 set('filter-teacher', 'ALL'); set('filter-day', 'Perşembe'); set('filter-period', '4'); set('filter-class', '11');
 assert(nodes['results-container'].innerHTML.includes('NEBİ SARI'));
 assert(nodes['results-container'].innerHTML.includes('YASİN ŞAVLI'));
-assert(nodes['results-container'].innerHTML.includes('Ortak ders'));
+assert(!nodes['results-container'].innerHTML.includes('source-tag'));
+assert(!/PDF s\.|satır/.test(nodes['results-container'].innerHTML));
 set('filter-class', '12'); set('filter-day', 'Salı'); set('filter-period', '1');
 assert(nodes['results-container'].innerHTML.includes('NESİBE GÜZİDE ÜNAL'));
 set('filter-class', '9');
 assert(nodes['results-container'].innerHTML.includes('BURAK KAÇAR'));
 assert(!nodes['results-container'].innerHTML.includes('AYŞE GİRGİN'));
 set('filter-class', '10'); set('filter-period', '5');
-assert(nodes['results-container'].innerHTML.includes('Derslik PDF’de belirtilmemiş'));
+assert(nodes['results-container'].innerHTML.includes('Derslik belirtilmemiş'));
 nodes['reset-button'].listeners.click(); verifyUI();
 assert.equal(renderedIds().length, 1403);
-assert(nodes['result-count'].textContent.includes('1264 ders'));
+assert.equal(nodes['result-count'].textContent, '1403 sonuç');
 set('filter-teacher', teacherIds.get('MEHMET KORKMAZ')); verifyUI();
-assert(nodes['empty-description'].textContent.includes('satırı boş'));
+assert.equal(nodes['empty-description'].textContent, 'Bu öğretmen için ders kaydı yok.');
 nodes['now-button'].listeners.click();
 assert.equal(nodes['filter-teacher'].value, teacherIds.get('MEHMET KORKMAZ'));
 report.checks.ui_regressions = 13;
@@ -209,12 +210,20 @@ set('filter-teacher', 'ALL'); set('filter-day', 'Çarşamba'); set('filter-perio
 verifyUI();
 const targetIds = renderedIds().map(id => byViewId.get(id));
 assert.equal(targetIds.length, 8);
-assert.equal(nodes['result-count'].textContent, '8 sınıf kaydı · 6 ders');
+assert.equal(nodes['result-count'].textContent, '8 sonuç');
 const targetCards = nodes['results-container'].innerHTML.split('<article').slice(1);
 for (const branch of ['10-A', '10-D']) {
   const card = targetCards.find(c => c.includes(`class-badge">${branch}</span>`));
-  assert(card.includes('KİM10') && card.includes('SALİH KILIÇ') && card.includes('Ortak kültür dersi'));
+  assert(card.includes('KİM10') && card.includes('SALİH KILIÇ'));
+  assert(!card.includes('branch-note') && !card.includes('source-tag'));
+  assert(card.indexOf('class-badge') < card.indexOf('teacher-name'));
+  assert(card.indexOf('teacher-name') < card.indexOf('lesson-details'));
 }
+assert.equal(nodes['current-status'].hidden, true);
+assert.equal(nodes['current-status'].textContent, '');
+assert.equal(nodes['teacher-info'], undefined);
+assert.equal(nodes['source-info'], undefined);
+report.checks.simplified_card_and_status_regressions = 8;
 assert.equal(core.escapeHtml('<script>"&\''), '&lt;script&gt;&quot;&amp;&#39;');
 report.passed = true;
 fs.writeFileSync(path.join(__dirname, 'app-verification.json'), JSON.stringify(report, null, 2) + '\n');

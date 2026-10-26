@@ -2,47 +2,41 @@
   "passed": true,
   "cases": [
     {
+      "case": "390px_no_pdf_or_explanatory_blocks",
+      "passed": true
+    },
+    {
+      "case": "390px_shared_branch_names",
+      "passed": true
+    },
+    {
+      "case": "320px_long_name_and_mesem_badge",
+      "passed": true,
+      "observedBranch": "12MSMB",
+      "visualReview": "Long name wraps completely; class and room remain visible."
+    },
+    {
+      "case": "shared_culture_preserved",
+      "passed": true
+    },
+    {
       "case": "only_four_grade_options",
       "passed": true
     },
     {
-      "case": "wednesday_six_grade10",
+      "case": "no_source_or_explanation_text",
       "passed": true
     },
     {
-      "case": "same_teacher_two_classes_one_lesson",
+      "case": "large_touch_controls",
       "passed": true
     },
     {
-      "case": "separate_vocational_branches",
+      "case": "manual_status_hidden",
       "passed": true
     },
     {
-      "case": "joint_teachers_preserved",
-      "passed": true
-    },
-    {
-      "case": "mesem_in_grade12",
-      "passed": true
-    },
-    {
-      "case": "full_week_source_count_preserved",
-      "passed": true
-    },
-    {
-      "case": "grade_9",
-      "passed": true
-    },
-    {
-      "case": "grade_10",
-      "passed": true
-    },
-    {
-      "case": "grade_11",
-      "passed": true
-    },
-    {
-      "case": "grade_12",
+      "case": "both_joint_teachers_visible",
       "passed": true
     }
   ]
