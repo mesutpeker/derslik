@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "independent_pdf_engine": "pypdf raw content + font CMaps",
+  "source_sha256": "4c604f30004057bec573ff279828e38ded835ccf49009f13c9f12cc00883db99",
+  "teachers_checked": 72,
+  "nonempty_cells_checked": 1347,
+  "empty_cells_checked": 2253,
+  "printed_cell_fields_checked": 4039,
+  "lessons_checked": 1264,
+  "bell_time_values_checked": 400,
+  "missing": 0,
+  "extra": 0,
+  "different": 0
+}

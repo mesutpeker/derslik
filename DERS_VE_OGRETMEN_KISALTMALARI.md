@@ -1,331 +1,343 @@
-# Karaman Mesleki ve Teknik Anadolu Lisesi
-## Haftalık Ders Programı — Öğretmen ve Ders Kısaltmaları Rehberi
+# PDF’den Çıkarılan Öğretmen ve Ders Kodu Dizini
 
-> **Belge Tarihi:** 12/10/2026  
-> **Kurum:** T.C. Karaman Valiliği - Karaman Mesleki ve Teknik Anadolu Lisesi  
-> **Okul Müdürü:** Nebi SARI  
-> **Kapsam:** 72 Öğretmen | 36 Sınıf | 181 Ders Kodu
+Bu dosya okul_verisi.json verisinden üretilir. Eski sürümdeki doğrulanmamış uzun ders adlarının yerini kaynak PDF’deki ham kodlar almıştır.
 
-Bu kılavuz, sınıf haftalık ders programları ile öğretmen çarşaf programında yer alan tüm öğretmen ve ders kısaltmalarının resmi çözümleme ve fihristidir.
+72 öğretmen, 45 sınıf/grup, 181 ders kodu, 1.347 öğretmen ataması, 1.264 ayrı ders, 83 ortak ders ve 87 MESEM ataması vardır.
 
----
+`T001` gibi kimlikler uygulamanın dahili kimlikleridir; PDF’de öğretmen kısaltması olarak yazmazlar. Sayfa/satır konumları her sayfada başlığın altındaki ilk öğretmenden başlayarak sayılır.
 
-### İçindekiler
-1. [Öğretmen İsimleri ve Kısaltmaları Fihristi](#1-öğretmen-isimleri-ve-kısaltmaları-fihristi)
-2. [Genel Kültür ve Ortak / Seçmeli Ders Kısaltmaları](#2-genel-kültür-ve-ortak--seçmeli-ders-kısaltmaları)
-3. [Meslek ve Alan Dersleri Kısaltmaları](#3-meslek-ve-alan-dersleri-kısaltmaları)
-4. [MESEM (Mesleki Eğitim Merkezi) Çıraklık Ders Kısaltmaları](#4-mesem-mesleki-eğitim-merkezi-çıraklık-ders-kısaltmaları)
-5. [Haftalık Ders Başlama ve Bitiş Saatleri Çizelgesi](#5-haftalık-ders-başlama-ve-bitiş-saatleri-çizelgesi)
+## Öğretmenler ve günlük ders saati toplamları
 
----
+| Kimlik | Öğretmen | Pzt | Salı | Çar | Per | Cuma | Toplam | PDF sayfa/satır |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| T001 | NEBİ SARI | 0 | 0 | 0 | 5 | 0 | 5 | 1/1 |
+| T002 | SALİH BAYRAMPINAR | 0 | 0 | 0 | 2 | 0 | 2 | 1/2 |
+| T003 | OKTAY ADACIK | 0 | 0 | 0 | 5 | 0 | 5 | 1/3 |
+| T004 | MUSTAFA ZORLU | 0 | 0 | 0 | 0 | 4 | 4 | 1/4 |
+| T005 | NESİBE GÜZİDE ÜNAL | 0 | 7 | 0 | 0 | 0 | 7 | 1/5 |
+| T006 | MESUDİYE TUNCAL | 0 | 0 | 0 | 6 | 0 | 6 | 1/6 |
+| T007 | MEHMET KARTAL | 6 | 2 | 0 | 2 | 2 | 12 | 1/7 |
+| T008 | BAYRAM ÇAM | 0 | 2 | 0 | 0 | 0 | 2 | 1/8 |
+| T009 | YUSUF AKKUL | 7 | 0 | 0 | 0 | 2 | 9 | 1/9 |
+| T010 | İSMAİL SARIOĞLU | 0 | 8 | 10 | 8 | 0 | 26 | 1/10 |
+| T011 | DERYA TOPTAŞ | 9 | 9 | 0 | 8 | 0 | 26 | 1/11 |
+| T012 | SEDAT YILMAZ | 3 | 8 | 9 | 4 | 0 | 24 | 1/12 |
+| T013 | ŞAFAK ÖZGÜN | 9 | 10 | 0 | 0 | 7 | 26 | 1/13 |
+| T014 | AHMET SAYAR | 8 | 0 | 8 | 10 | 0 | 26 | 1/14 |
+| T015 | YASİN ŞAVLI | 8 | 0 | 8 | 7 | 0 | 23 | 1/15 |
+| T016 | AHMET KALE | 9 | 9 | 4 | 3 | 0 | 25 | 1/16 |
+| T017 | MUHARREM ÇINAR | 8 | 0 | 10 | 0 | 7 | 25 | 1/17 |
+| T018 | HASAN AKKUŞ | 0 | 0 | 8 | 5 | 7 | 20 | 1/18 |
+| T019 | AYHAN TÜRK | 9 | 5 | 6 | 0 | 0 | 20 | 1/19 |
+| T020 | EMRA BİLEK COŞKUNER | 0 | 0 | 4 | 8 | 9 | 21 | 1/20 |
+| T021 | HALİS DÜNDAR | 0 | 9 | 7 | 4 | 0 | 20 | 1/21 |
+| T022 | EMİNE KARALI | 0 | 9 | 6 | 5 | 0 | 20 | 2/1 |
+| T023 | AHMET ÜSTBAŞ | 5 | 0 | 8 | 5 | 8 | 26 | 2/2 |
+| T024 | FEHMİ ALPARSLAN DEMİR | 0 | 9 | 2 | 8 | 5 | 24 | 2/3 |
+| T025 | ERKİN AKDOĞAN | 10 | 0 | 0 | 0 | 0 | 10 | 2/4 |
+| T026 | FERHAT YÜKSEL KÜÇÜKKAYA | 9 | 10 | 10 | 10 | 0 | 39 | 2/5 |
+| T027 | ÖMER İPEKDAL | 0 | 0 | 0 | 0 | 10 | 10 | 2/6 |
+| T028 | HASAN GÜDÜK | 0 | 9 | 4 | 9 | 0 | 22 | 2/7 |
+| T029 | DERVİŞ BOZKURT | 7 | 7 | 4 | 0 | 8 | 26 | 2/8 |
+| T030 | NEVZAT KAYGISIZ | 7 | 0 | 6 | 7 | 6 | 26 | 2/9 |
+| T031 | ÖMER DAĞLI | 5 | 4 | 4 | 4 | 10 | 27 | 2/10 |
+| T032 | ÜMİT ŞEN | 4 | 9 | 10 | 0 | 0 | 23 | 2/11 |
+| T033 | TUFAN KOCA | 0 | 8 | 9 | 7 | 8 | 32 | 2/12 |
+| T034 | İBRAHİM TÜRK | 7 | 9 | 9 | 0 | 0 | 25 | 2/13 |
+| T035 | MEHMET KORKMAZ | 0 | 0 | 0 | 0 | 0 | 0 | 2/14 |
+| T036 | HAVVA DEMİR | 4 | 0 | 0 | 7 | 7 | 18 | 2/15 |
+| T037 | EMRE YAMANER | 5 | 0 | 0 | 5 | 9 | 19 | 2/16 |
+| T038 | MEHMET MESUT PEKER | 9 | 2 | 0 | 0 | 6 | 17 | 2/17 |
+| T039 | AYŞENUR DEMİRTAŞ | 0 | 0 | 4 | 9 | 7 | 20 | 2/18 |
+| T040 | CANİP DİNÇ | 4 | 7 | 0 | 6 | 8 | 25 | 2/19 |
+| T041 | ALİ BEZGİN | 8 | 6 | 7 | 3 | 0 | 24 | 2/20 |
+| T042 | RIFAT CANUYLASI | 0 | 7 | 5 | 0 | 4 | 16 | 2/21 |
+| T043 | FADİME BAŞTUĞ | 4 | 3 | 0 | 6 | 5 | 18 | 3/1 |
+| T044 | ÖZLEM DEMİRTAŞ | 0 | 8 | 8 | 4 | 0 | 20 | 3/2 |
+| T045 | YASEMİN AKDOĞAN | 9 | 5 | 8 | 3 | 0 | 25 | 3/3 |
+| T046 | DUYGU YÜNGEVİŞ | 3 | 4 | 0 | 5 | 8 | 20 | 3/4 |
+| T047 | DİDEM KILIÇ | 5 | 0 | 0 | 3 | 7 | 15 | 3/5 |
+| T048 | EMİNE TÜRKMEN | 0 | 0 | 8 | 8 | 0 | 16 | 3/6 |
+| T049 | AHMET SAYIN | 9 | 8 | 8 | 0 | 0 | 25 | 3/7 |
+| T050 | YASİN EKİNCİ | 10 | 2 | 6 | 0 | 0 | 18 | 3/8 |
+| T051 | SALİH KILIÇ | 2 | 7 | 8 | 3 | 0 | 20 | 3/9 |
+| T052 | ZELİHA BÜYÜKÇETİNKAYA | 10 | 6 | 0 | 6 | 0 | 22 | 3/10 |
+| T053 | ESRA KUMCU | 0 | 8 | 3 | 0 | 0 | 11 | 3/11 |
+| T054 | FUAT ÇELİK | 0 | 0 | 8 | 4 | 9 | 21 | 3/12 |
+| T055 | ASİYE ZORLU | 2 | 0 | 6 | 2 | 6 | 16 | 3/13 |
+| T056 | MUSTAFA RIDVAN DOĞAN | 0 | 6 | 0 | 2 | 4 | 12 | 3/14 |
+| T057 | BURAK KAÇAR | 0 | 6 | 0 | 4 | 10 | 20 | 3/15 |
+| T058 | AYŞE GİRGİN | 8 | 2 | 0 | 0 | 4 | 14 | 3/16 |
+| T059 | ZEHRA OSMA | 0 | 0 | 7 | 6 | 8 | 21 | 3/17 |
+| T060 | ALİ SAMET ÖZAKIL | 8 | 10 | 6 | 4 | 0 | 28 | 3/18 |
+| T061 | ÖZLEM BULUT | 0 | 4 | 5 | 0 | 6 | 15 | 3/19 |
+| T062 | BAYRAM ÇATAK | 6 | 0 | 0 | 6 | 4 | 16 | 3/20 |
+| T063 | FATMA KUZU | 0 | 7 | 4 | 5 | 0 | 16 | 3/21 |
+| T064 | BURCU DÖLEK | 8 | 4 | 4 | 8 | 0 | 24 | 4/1 |
+| T065 | FEYZAN GEVREK | 4 | 5 | 0 | 4 | 10 | 23 | 4/2 |
+| T066 | FADİME SEZGİN | 7 | 0 | 0 | 4 | 4 | 15 | 4/3 |
+| T067 | ÖZGE KÜÇÜKHAYRAT | 6 | 4 | 0 | 6 | 0 | 16 | 4/4 |
+| T068 | SAİME KÜÇÜKALİM | 0 | 6 | 4 | 9 | 0 | 19 | 4/5 |
+| T069 | EMİNE SİBEL ERYİĞİT | 0 | 5 | 0 | 6 | 8 | 19 | 4/6 |
+| T070 | SITTIKA DELEN | 8 | 6 | 0 | 0 | 0 | 14 | 4/7 |
+| T071 | YÜCEL BÜYÜKÇETİNKAYA | 8 | 10 | 10 | 0 | 0 | 28 | 4/8 |
+| T072 | BAHADIR METE | 0 | 0 | 0 | 7 | 10 | 17 | 4/9 |
 
-### 1. Öğretmen İsimleri ve Kısaltmaları Fihristi
+MEHMET KORKMAZ’ın kaynak PDF’deki satırı boştur. İki MAT10 hücresinde derslik yazmaz: DUYGU YÜNGEVİŞ, Salı 5–6. saat, 10-E. Bu alanlar doldurulmamıştır.
 
-| S.No | Kısaltma | Öğretmen Adı Soyadı | Branş / Alan | Haftalık Ders Saati | Girdiği Sınıflar |
-| :---: | :--- | :--- | :--- | :---: | :--- |
-| 1 | **A.KLE** | AHMET KALE | Mobilya ve İç Mekân Tasarımı | 27 saat | 10-B, 11-B, 9-B |
-| 2 | **A.SYR** | AHMET SAYAR | Elektrik-Elektronik | 28 saat | 10-E, 11-L, 11MSMA, 9-E |
-| 3 | **A.SYN** | AHMET SAYIN | Fizik | 25 saat | 11-L, 12-L, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 4 | **A.ÜST** | AHMET ÜSTBAŞ | Makine Teknolojisi | 32 saat | 10-A, 11-A1, 9-A, 9-M |
-| 5 | **A.BZG** | ALİ BEZGİN | Türk Dili ve Edebiyatı | 24 saat | 10-L, 11-L, 12-L, 9-M |
-| 6 | **A.ÖZK** | ALİ SAMET ÖZAKIL | Din Kültürü ve Ahlak Bilgisi | 28 saat | 10-B, 10-C, 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 7 | **A.ZOR** | ASİYE ZORLU | Coğrafya | 16 saat | 9-A, 9-B, 9-C, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 8 | **A.TRK** | AYHAN TÜRK | Gıda / Metal Teknolojisi | 21 saat | 10-C, 11B-G, 9-D, 9C-İ |
-| 9 | **A.GRG** | AYŞE GİRGİN | Tarih | 28 saat | 10-A, 10-B, 10-C, 11-B, 11-C, 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 10 | **A.DMR** | AYŞENUR DEMİRTAŞ | Türk Dili ve Edebiyatı | 20 saat | 9-C, 9-D, 9-E, 9-G |
-| 11 | **B.MTE** | BAHADIR METE | Beden Eğitimi | 17 saat | 10-B, 10-L, 11-B, 11-C, 12-L, 9-C, 9-E, 9-F, 9-L |
-| 12 | **B.ÇAM** | BAYRAM ÇAM | Gıda Teknolojisi | 2 saat | 9-D |
-| 13 | **B.ÇTK** | BAYRAM ÇATAK | Din Kültürü / Temel Dini Bilgiler | 20 saat | 10-A, 10-E, 10-F, 10MSMA1, 10MSMB, 11-C, 11MSMA1, 11MSMB1, 9-C, 9-G, A10MSMA, A10MSMB1, A11MSMA1, B11MSMB |
-| 14 | **B.KÇR** | BURAK KAÇAR | Tarih | 20 saat | 10-A, 11-B, 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-L, 9-M |
-| 15 | **B.DLK** | BURCU DÖLEK | Felsefe | 24 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L |
-| 16 | **C.DNÇ** | CANİP DİNÇ | Türk Dili ve Edebiyatı | 26 saat | 10MSMA, 10MSMA1, 10MSMB1, 11-B, 12-A, 12-B, 12-C, 12-L, 9MSMB, B10MSMB |
-| 17 | **D.BZK** | DERVİŞ BOZKURT | Metal Teknolojisi | 26 saat | 10-C, 11-C, 12C-İ, 9-C |
-| 18 | **D.TPT** | DERYA TOPTAŞ | Elektrik-Elektronik | 27 saat | 10-F, 9-E, 9-F, 9-L |
-| 19 | **D.YNG** | DUYGU YÜNGEVİŞ | Matematik | 24 saat | 10-A, 10-E, 10MSMA1, 10MSMB1, 9-A, A10MSMA, B10MSMB |
-| 20 | **D.KLÇ** | DİDEM KILIÇ | Matematik | 21 saat | 9-C, 9-D, 9-G, M |
-| 21 | **E.CŞK** | EMRA BİLEK COŞKUNER | Gıda Teknolojisi | 22 saat | 10-B, 11B-G, 12B-G, 9-F, 9-G, K |
-| 22 | **E.YMN** | EMRE YAMANER | Türk Dili ve Edebiyatı | 19 saat | 11-E, 9-A, 9-F, 9-L |
-| 23 | **E.KRL** | EMİNE KARALI | Gıda Teknolojisi | 21 saat | 10B-G, 11B-G, 9-L |
-| 24 | **E.ERY** | EMİNE SİBEL ERYİĞİT | İngilizce | 20 saat | 10-B, 10-C, 10-E, 10-F, 10-L, 9-E, 9-L |
-| 25 | **E.TRK** | EMİNE TÜRKMEN | Fizik | 16 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L, 9-A, 9-B |
-| 26 | **E.AKD** | ERKİN AKDOĞAN | Makine Teknolojisi | 10 saat | 11-A2, 12-A |
-| 27 | **E.KUM** | ESRA KUMCU | Biyoloji | 11 saat | 12-L, 9-A, 9-B, 9-C, 9-D |
-| 28 | **F.BŞT** | FADİME BAŞTUĞ | Matematik | 21 saat | 1, 10-L, 11-L, 11MSMA, 11MSMB, 12-L, A |
-| 29 | **F.SZG** | FADİME SEZGİN | İngilizce | 15 saat | 11-L, 9-D, 9-F, 9-G |
-| 30 | **F.KZU** | FATMA KUZU | Din Kültürü ve Ahlak Bilgisi | 17 saat | 11-A1, 11-B, 11-E, 11-L, 12-A, 12-B, 12-C, 12-L, 12MSMA1, 12MSMB1, A12MSMA, B12MSMB |
-| 31 | **F.DMR** | FEHMİ ALPARSLAN DEMİR | Makine Teknolojisi | 33 saat | 10-A, 11-A1, 11-A2, 9-A |
-| 32 | **F.KÇK** | FERHAT YÜKSEL KÜÇÜKKAYA | Motorlu Araçlar Teknolojisi | 41 saat | 10A-D, 11MSMA1, 11MSMB, 11MSMB1, 12MSMA, 12MSMA1, 12MSMB, 12MSMB1, 9MSMB, 9MSMB1, A10MSMB1, A11MSMA1, A12MSMA, A12MSMA1, A12MSMB1, A9MSMA1, B10MSMB, B10MSMB1, B11MSMA1, B11MSMB1, B12MSMB, B9MSMA |
-| 33 | **F.GVR** | FEYZAN GEVREK | Felsefe / Demokrasi | 23 saat | 11-A1, 11-B, 11-C, 11-E, 11-L, 12-L, 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 34 | **F.ÇLK** | FUAT ÇELİK | Coğrafya | 21 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L, 11-A1, 11-L, 12-L, 9-D |
-| 35 | **H.DND** | HALİS DÜNDAR | Gıda / Mesleki Gelişim | 22 saat | 10-A, 10-E, 10-F, 10B-G, 9-A, 9-B |
-| 36 | **H.AKK** | HASAN AKKUŞ | Gıda Teknolojisi | 22 saat | 10-L, 11B-G, 12B-G, 9-E, 9-G, 9-M |
-| 37 | **H.GDK** | HASAN GÜDÜK | Metal Teknolojisi | 22 saat | 10-C, 11-C, 11C-İ |
-| 38 | **H.DMR** | HAVVA DEMİR | Türk Dili ve Edebiyatı | 18 saat | 10-A, 10-B, 10-E, 9-B |
-| 39 | **M.KRT** | MEHMET KARTAL | Kimya / Tesisat / Çevre | 12 saat | 11-A1, 11-E, 11C-D, 11C-İ, 12-L, 9MSMB |
-| 40 | **M.KRK** | MEHMET KORKMAZ | Motorlu Araçlar Teknolojisi | 10 saat | 9-D |
-| 41 | **M.PKR** | MEHMET MESUT PEKER | Türk Dili ve Edebiyatı | 17 saat | 10-F, 11-C, 11-L, 12-A, 12-L |
-| 42 | **M.TNC** | MESUDİYE TUNCAL | Gıda / Mesleki Gelişim | 6 saat | 9-B, 9-E, 9-F |
-| 43 | **M.ÇNR** | MUHARREM ÇINAR | Mobilya ve İç Mekân Tasarımı | 27 saat | 11-B, 12-B, 9-B |
-| 44 | **M.DĞN** | MUSTAFA RIDVAN DOĞAN | Tarih | 19 saat | 10-E, 11-A1, 11-E, 11-L, 12-A, 12-B, 12-C, 12-L |
-| 45 | **M.ZOR** | MUSTAFA ZORLU | Tarih | 4 saat | 10-F, 10-L |
-| 46 | **N.SARI** | NEBİ SARI | Okul Müdürü / Mobilya | 6 saat | 11-B |
-| 47 | **N.ÜNL** | NESİBE GÜZİDE ÜNAL | Mesleki Eğitim (MESEM) | 12 saat | 12MSMC, 12MSMC1, C12MSMC, C12MSMC1 |
-| 48 | **N.KYG** | NEVZAT KAYGISIZ | Metal Teknolojisi | 30 saat | 10-C, 11-C, 12-C |
-| 49 | **O.ADC** | OKTAY ADACIK | Mobilya ve İç Mekân Tasarımı | 6 saat | 11-B |
-| 50 | **R.CNY** | RIFAT CANUYLASI | Türk Dili ve Edebiyatı | 17 saat | 10-C, 11-A1, 12-A, 9MSMA |
-| 51 | **S.BYR** | SALİH BAYRAMPINAR | Tesisat Teknolojisi | 4 saat | 10C-İ |
-| 52 | **S.KLÇ** | SALİH KILIÇ | Kimya | 20 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L, 11-A1, 11-B, 11-C, 11-E, 11-L |
-| 53 | **S.KÇK** | SAİME KÜÇÜKALİM | İngilizce | 20 saat | 10-A, 12-A, 12-B, 12-C, 12-L, 9-B, 9-C |
-| 54 | **S.YLM** | SEDAT YILMAZ | Elektrik-Elektronik | 24 saat | 10-F, 10-L, 11-E |
-| 55 | **S.DLN** | SITTIKA DELEN | Sağlık Bilgisi / Adabı Muaşeret | 14 saat | 11-A1, 11-B, 11-C, 11-E, 11-L, 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 56 | **T.KCA** | TUFAN KOCA | Tesisat / Metal Teknolojisi | 32 saat | 10C-İ, 11C-İ, 9-C, 9C-İ |
-| 57 | **Y.AKD** | YASEMİN AKDOĞAN | Matematik | 30 saat | 10-C, 9-B, 9-F, 9-M, 9MSMA, 9MSMB, A9MSMA, M |
-| 58 | **Y.EKN** | YASİN EKİNCİ | Kimya | 18 saat | 9-A, 9-B, 9-C, 9-D, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 59 | **Y.ŞAV** | YASİN ŞAVLI | Mobilya ve İç Mekân Tasarımı | 25 saat | 11-B |
-| 60 | **Y.AKK** | YUSUF AKKUL | Elektrik-Elektronik | 9 saat | 12A-E, 9-L |
-| 61 | **Y.BYK** | YÜCEL BÜYÜKÇETİNKAYA | Beden Eğitimi | 28 saat | 10-A, 10-C, 10-E, 10-F, 11-A1, 11-E, 11-L, 9-A, 9-B, 9-D, 9-G, 9-M, 9MSMA, 9MSMB |
-| 62 | **Z.OSM** | ZEHRA OSMA | Din Kültürü ve Ahlak Bilgisi | 21 saat | 11-A1, 11-B, 11-C, 11-E, 11-L, 9-D, 9-E, 9-F |
-| 63 | **Z.BYK** | ZELİHA BÜYÜKÇETİNKAYA | Biyoloji | 22 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L, 9-E, 9-F, 9-G, 9-L, 9-M |
-| 64 | **Ö.DAĞ** | ÖMER DAĞLI | Makine / Tesisat | 30 saat | 10-A, 10C-İ, 11-A1, 11C-İ, 12C-İ, 9-A |
-| 65 | **Ö.İPK** | ÖMER İPEKDAL | Motorlu Araçlar Teknolojisi | 11 saat | 10MSMA, 10MSMA1, 11C-D |
-| 66 | **Ö.KÇK** | ÖZGE KÜÇÜKHAYRAT | İngilizce | 16 saat | 11-A1, 11-B, 11-C, 11-E, 9-A, 9-M |
-| 67 | **Ö.BLT** | ÖZLEM BULUT | Din Kültürü ve Ahlak Bilgisi | 16 saat | 10-A, 10-B, 10-C, 10-E, 10-F, 10-L, 9MSMA, A9MSMA |
-| 68 | **Ö.DMR** | ÖZLEM DEMİRTAŞ | Matematik | 23 saat | 10-B, 10-F, 9-E, 9-L |
-| 69 | **Ü.ŞEN** | ÜMİT ŞEN | Makine / Motor / Metal | 29 saat | 10A-D, 11C-D, 12-C, 12C-D, 9-C, 9-D, 9-M |
-| 70 | **İ.TRK** | İBRAHİM TÜRK | Motorlu Araçlar Teknolojisi | 26 saat | 10A-D, 11C-D, 12C-D |
-| 71 | **İ.SRĞ** | İSMAİL SARIOĞLU | Elektrik-Elektronik | 27 saat | 10-L, 11-E, 9-L |
-| 72 | **Ş.ÖZG** | ŞAFAK ÖZGÜN | Elektrik-Elektronik | 26 saat | 10-E, 10-F, 10-L, 11-A2, 11-E |
+## Sınıf/grup kodları
 
----
+| Kod | Ayrı ders saati | Öğretmen ataması |
+| --- | ---: | ---: |
+| 10-A | 45 | 45 |
+| 10-B | 45 | 45 |
+| 10-C | 45 | 52 |
+| 10-E | 45 | 45 |
+| 10-F | 45 | 50 |
+| 10-L | 45 | 45 |
+| 10A-D | 13 | 13 |
+| 10B-G | 13 | 26 |
+| 10C-İ | 13 | 13 |
+| 10MSMA | 10 | 10 |
+| 10MSMB | 10 | 10 |
+| 11-A1 | 45 | 45 |
+| 11-A2 | 17 | 17 |
+| 11-B | 45 | 71 |
+| 11-C | 45 | 45 |
+| 11-E | 45 | 54 |
+| 11-L | 45 | 45 |
+| 11B-G | 26 | 26 |
+| 11C-D | 26 | 26 |
+| 11C-İ | 24 | 24 |
+| 11MSMA | 10 | 10 |
+| 11MSMB | 10 | 10 |
+| 12-A | 20 | 20 |
+| 12-B | 20 | 20 |
+| 12-C | 20 | 20 |
+| 12-L | 45 | 45 |
+| 12A-E | 7 | 7 |
+| 12B-G | 7 | 14 |
+| 12C-D | 7 | 7 |
+| 12C-İ | 7 | 7 |
+| 12MSMA | 10 | 10 |
+| 12MSMB | 10 | 10 |
+| 12MSMC | 7 | 7 |
+| 9-A | 45 | 45 |
+| 9-B | 45 | 47 |
+| 9-C | 45 | 45 |
+| 9-D | 45 | 47 |
+| 9-E | 45 | 47 |
+| 9-F | 45 | 47 |
+| 9-G | 45 | 45 |
+| 9-L | 45 | 53 |
+| 9-M | 45 | 45 |
+| 9C-İ | 12 | 12 |
+| 9MSMA | 10 | 10 |
+| 9MSMB | 10 | 10 |
 
-### 2. Genel Kültür ve Ortak / Seçmeli Ders Kısaltmaları
+Birleşik grup kodlarından ana şube eşlemesi türetilmez. PDF’de ayrı sınıf kodu bulunmayan 10-D, 11-G gibi seçenekler eklenmez.
 
-| Ders Kodu | Dersin Tam Adı | Kategori / Sınıf Düzeyi |
-| :--- | :--- | :--- |
-| **BED 9** | BEDEN EĞİTİMİ 9 | Kültür / Ortak |
-| **BED10** | BEDEN EĞİTİMİ 10 | Kültür / Ortak |
-| **BED11** | BEDEN EĞİTİMİ 11 | Kültür / Ortak |
-| **BİY10** | BİYOLOJİ | Kültür / Ortak |
-| **BİYO 9** | BİYOLOJİ 9 | Kültür / Ortak |
-| **BİYO12** | SEÇMELİ BİYOLOJİ 12 | Seçmeli Ders |
-| **COĞ 9** | COĞRAFYA 9 | Kültür / Ortak |
-| **COĞ10** | COĞRAFYA 10 | Kültür / Ortak |
-| **DİHK 9** | SEÇMELİ DEMOKRASİ VE İNSAN HAKLARI 9 | Seçmeli Ders |
-| **DİN 9** | DİN KÜLTÜRÜ VE AHLAK BİLGİSİ 9 | Kültür / Ortak |
-| **DİN10** | DİN KÜLTÜRÜ VE AHLAK BİLGİSİ 10 | Kültür / Ortak |
-| **DİN11** | DİN KÜLTÜRÜ VE AHLAK BİLGİSİ 11 | Kültür / Ortak |
-| **DİN12** | DİN KÜLTÜRÜ VE AHLAK BİLGİSİ 12 | Kültür / Ortak |
-| **FEL10** | FELSEFE 10 | Kültür / Ortak |
-| **FELS11** | FELSEFE 11 | Kültür / Ortak |
-| **FİZ 9** | FİZİK 9 | Kültür / Ortak |
-| **FİZ10** | FİZİK | Kültür / Ortak |
-| **HZPH9** | SEÇMELİ PEYGAMBERİMİZİN HAYATI 9 | Seçmeli Ders |
-| **KİM 9** | KİMYA 9 | Kültür / Ortak |
-| **KİM10** | KİMYA | Kültür / Ortak |
-| **MAT10** | MATEMATİK | Kültür / Ortak |
-| **MATM 9** | MATEMATİK 9 | Kültür / Ortak |
-| **MES9** | MESLEKİ GELİŞİM ATÖLYESİ | Kültür / Ortak |
-| **REHB** | REHBERLİK VE YÖNLENDİRME | Rehberlik |
-| **SAD9** | SEÇMELİ ADABI MUAŞERET | Seçmeli Ders |
-| **SAK** | SEÇMELİ AHİLİK KÜLTÜRÜ VE GİRİŞİMCİLİK | Seçmeli Ders |
-| **SAĞB 9** | SAĞLIK BİLGİSİ VE TRAFİK KÜLTÜRÜ 11 | Kültür / Ortak |
-| **SBYY12** | SEÇMELİ BİLİŞİM TEKNOLOJİLERİ VE YAZILIM | Seçmeli Ders |
-| **SDE** | SEÇMELİ DÜŞÜNME EĞİTİMİ | Seçmeli Ders |
-| **SKAM** | SEÇMELİ KLASİK AHLAK METİNLERİ | Seçmeli Ders |
-| **SOTT11** | SEÇMELİ ORTAK TÜRK TARİHİ 11 | Seçmeli Ders |
-| **SSE12** | SEÇEMELİ SPOR EĞİTİMİ 12 | Kültür / Ortak |
-| **SSM11** | SEÇMELİ SOSYAL MEDYA 11 | Seçmeli Ders |
-| **SSOS11** | SEÇMELİ SOSYOLOJİ 11 | Seçmeli Ders |
-| **ST12** | SEÇMELİ TARİH1 12 | Seçmeli Ders |
-| **STDB** | SEÇMELİ TEMEL DİNİ BİLGİLER | Seçmeli Ders |
-| **STDE** | SEÇMELİ TÜRK DİLİ VE EDEBİYATI | Seçmeli Ders |
-| **STDE12** | SEÇMELİ TÜRK DİLİ VE EDEBİYATI 12 | Seçmeli Ders |
-| **STE11** | SEÇMELİ TEMEL ELEKTRİK 11 | Seçmeli Ders |
-| **STGE11** | SIHHİ TESİSAT VE GÜNEŞ ENERJİSİ ATÖLYESİ | Kültür / Ortak |
-| **STME11** | SEÇMELİ TEMEL MAKİNA ELAMANLARI 11 | Seçmeli Ders |
-| **STSEV12** | SEÇMELİ TESİSAT SİSTEMLERİ ENERJİ VERİML | Seçmeli Ders |
-| **TAR 9** | TARİH 9 | Kültür / Ortak |
-| **TAR10** | TARİH 10 | Kültür / Ortak |
-| **TAR11** | TARİH 11 | Kültür / Ortak |
-| **TDC** | SEÇMELİ TÜRK DÜNYASI COĞRAFYASI | Seçmeli Ders |
-| **TDE9** | TÜRK DİLİ VE EDEBİYATI | Kültür / Ortak |
-| **TED10** | TÜRK DİLİ VE EDEBİYATI 10 | Kültür / Ortak |
-| **TED11** | TÜRK DİLİ VE EDEBİYATI 11 | Kültür / Ortak |
-| **TED12** | TÜRK DİLİ VE EDEBİYATI 12 | Kültür / Ortak |
-| **TEMA11** | SEÇMELİ TEMEL MATEMATİK11 | Seçmeli Ders |
-| **İKM11** | SEÇMELİ İSLAM KÜLTÜR VE MEDENİYETİ | Seçmeli Ders |
-| **İNG 9** | İNGİLİZCE 9 | Kültür / Ortak |
-| **İNG10** | İNGİLİZCE 10 | Kültür / Ortak |
-| **İNG11** | İNGİLİZCE 11 | Kültür / Ortak |
-| **İNG12** | İNGİLİZCE 12 | Kültür / Ortak |
-| **İNKT12** | T.C.İNKILAP TARİHİ VE ATATÜRKÇÜLÜK 12 | Kültür / Ortak |
-| **İÇY11** | SEÇMELİ İKLİM, ÇEVRE VE YENİLİKÇİ ÇÖZÜML | Seçmeli Ders |
+## Ders kodları
 
----
+PDF uzun ders adlarını içermediği için bu dizin kodları açımlamaz. Kodlar yazıldıkları şekilde korunur; örneğin `SBKMR1` ve `GKOKA1` sonlarına tahmini karakter eklenmez.
 
-### 3. Meslek ve Alan Dersleri Kısaltmaları
+| Ders kodu | Ayrı ders saati | Öğretmen ataması |
+| --- | ---: | ---: |
+| AHPS10 | 2 | 2 |
+| AKA11 | 7 | 7 |
+| AKT11 | 2 | 2 |
+| BDD10 | 6 | 8 |
+| BDMÇ10 | 4 | 4 |
+| BDTM10 | 4 | 4 |
+| BED 9 | 22 | 22 |
+| BED10 | 12 | 12 |
+| BED11 | 10 | 10 |
+| BKM10 | 4 | 4 |
+| BKOR10 | 3 | 3 |
+| BKT11 | 4 | 4 |
+| BKÜ11 | 9 | 9 |
+| BSBÇ9 | 2 | 2 |
+| BTY | 6 | 6 |
+| BYG11 | 3 | 3 |
+| BİMR11 | 3 | 6 |
+| BİY10 | 12 | 12 |
+| BİYO 9 | 18 | 18 |
+| BİYO12 | 3 | 3 |
+| COĞ 9 | 18 | 18 |
+| COĞ10 | 12 | 12 |
+| DYKS11 | 4 | 4 |
+| DİHK 9 | 9 | 9 |
+| DİN 9 | 22 | 22 |
+| DİN10 | 16 | 16 |
+| DİN11 | 14 | 14 |
+| DİN12 | 12 | 12 |
+| EE11 | 4 | 4 |
+| EEES10 | 9 | 12 |
+| EMB9 | 2 | 2 |
+| ETA | 8 | 8 |
+| FEL10 | 12 | 12 |
+| FELS11 | 10 | 10 |
+| FİZ 9 | 18 | 18 |
+| FİZ10 | 12 | 12 |
+| GDMİK9 | 4 | 4 |
+| GHS9 | 2 | 2 |
+| GKKT11 | 2 | 2 |
+| GKOKA1 | 6 | 6 |
+| GKİM10 | 3 | 6 |
+| GMAT | 2 | 4 |
+| GMBA | 4 | 8 |
+| GTKKA11 | 9 | 9 |
+| GYCA11 | 6 | 6 |
+| GÜTK11 | 6 | 6 |
+| GİMK11 | 2 | 2 |
+| HKSA11 | 9 | 9 |
+| HZPH9 | 18 | 18 |
+| IDTA10 | 7 | 7 |
+| IŞ10 | 4 | 4 |
+| KKA10 | 16 | 16 |
+| KT12 | 4 | 4 |
+| KİLM12 | 2 | 2 |
+| KİM 9 | 18 | 18 |
+| KİM10 | 12 | 12 |
+| LABT9 | 4 | 4 |
+| MAS10 | 7 | 7 |
+| MAT10 | 30 | 30 |
+| MATM 9 | 45 | 45 |
+| MB10 | 2 | 2 |
+| MDK11 | 4 | 4 |
+| MEBO11 | 6 | 6 |
+| MENZ11 | 3 | 3 |
+| MES9 | 20 | 28 |
+| MLZB10 | 2 | 2 |
+| MTDÖ10 | 4 | 8 |
+| MYVMİ11 | 2 | 2 |
+| MİMR12 | 4 | 4 |
+| OA11 | 9 | 18 |
+| OEA10 | 9 | 9 |
+| OKS11 | 6 | 6 |
+| OKSB12 | 2 | 2 |
+| OMRS11 | 4 | 4 |
+| OTRS10 | 2 | 2 |
+| PA11 | 9 | 9 |
+| PMÜ11 | 8 | 16 |
+| REHB | 20 | 20 |
+| SAD9 | 9 | 9 |
+| SAES | 3 | 3 |
+| SAK | 6 | 6 |
+| SAVAS12 | 2 | 2 |
+| SAĞB 9 | 5 | 5 |
+| SBDTÇ11 | 3 | 3 |
+| SBES | 2 | 2 |
+| SBKMR1 | 2 | 4 |
+| SBYY12 | 6 | 6 |
+| SBİMT11 | 4 | 8 |
+| SCD11 | 2 | 2 |
+| SCNC | 4 | 8 |
+| SCĞ12 | 2 | 2 |
+| SDE | 12 | 12 |
+| SEKS12 | 2 | 2 |
+| SEÇK1 | 4 | 4 |
+| SF12 | 1 | 1 |
+| SFZ12 | 6 | 6 |
+| SGAK12 | 2 | 2 |
+| SGKS | 4 | 4 |
+| SHİ11 | 5 | 5 |
+| SIP11 | 4 | 4 |
+| SKAM | 4 | 4 |
+| SKM12 | 4 | 4 |
+| SKT12 | 2 | 2 |
+| SKVM12 | 3 | 3 |
+| SLTM11 | 2 | 2 |
+| SM12 | 9 | 9 |
+| SMB12 | 2 | 2 |
+| SME11 | 2 | 2 |
+| SMLB11 | 2 | 2 |
+| SMMİ11 | 3 | 6 |
+| SOTT11 | 4 | 4 |
+| SPB12 | 3 | 3 |
+| SPRG | 3 | 3 |
+| SPTU | 2 | 2 |
+| SSE12 | 1 | 1 |
+| SSM11 | 4 | 4 |
+| SSOS11 | 2 | 2 |
+| SSİ12 | 7 | 14 |
+| ST12 | 2 | 2 |
+| STDB | 11 | 11 |
+| STDE | 3 | 3 |
+| STDE12 | 4 | 4 |
+| STE11 | 1 | 1 |
+| STGE11 | 8 | 8 |
+| STME11 | 2 | 2 |
+| STSEV12 | 3 | 3 |
+| SÇDRİ12 | 3 | 3 |
+| SÇF11 | 4 | 4 |
+| SÇY12 | 2 | 2 |
+| SİMU11 | 7 | 7 |
+| TAR 9 | 18 | 18 |
+| TAR10 | 12 | 12 |
+| TAR11 | 10 | 10 |
+| TASMB11 | 2 | 4 |
+| TAUY9 | 6 | 6 |
+| TDC | 4 | 4 |
+| TDE9 | 45 | 45 |
+| TED10 | 24 | 24 |
+| TED11 | 20 | 20 |
+| TED12 | 16 | 16 |
+| TEEAT9 | 24 | 32 |
+| TEL11 | 2 | 2 |
+| TELK10 | 2 | 2 |
+| TEMA11 | 2 | 2 |
+| TESP11 | 3 | 3 |
+| TKA10 | 7 | 14 |
+| TKT10 | 2 | 2 |
+| TMTİ9 | 6 | 6 |
+| TOTEK9 | 10 | 10 |
+| TRE | 6 | 6 |
+| TRES9 | 14 | 14 |
+| TTİ9 | 8 | 8 |
+| TİİŞ9 | 16 | 16 |
+| YÜY11 | 4 | 4 |
+| ÇAKG12 | 2 | 2 |
+| ÇBDÇ | 2 | 2 |
+| ÇBKT12 | 2 | 2 |
+| ÇBKTÜ12 | 4 | 4 |
+| ÇBOMR11 | 2 | 2 |
+| ÇEDB9 | 8 | 8 |
+| ÇHP12 | 1 | 1 |
+| ÇMAT11 | 2 | 2 |
+| ÇMAT9 | 8 | 8 |
+| ÇMBO12 | 3 | 3 |
+| ÇMKNZ12 | 2 | 2 |
+| ÇMMB | 4 | 4 |
+| ÇMR11 | 2 | 2 |
+| ÇOP12 | 2 | 2 |
+| ÇTE11 | 1 | 1 |
+| ÇİA12 | 5 | 5 |
+| ÇİY | 3 | 3 |
+| ÇİİŞ | 4 | 4 |
+| ÖLÇK10 | 2 | 2 |
+| İKM11 | 5 | 5 |
+| İMLY10 | 6 | 6 |
+| İNG 9 | 36 | 36 |
+| İNG10 | 12 | 12 |
+| İNG11 | 10 | 10 |
+| İNG12 | 8 | 8 |
+| İNKT12 | 8 | 8 |
+| İÇY11 | 2 | 2 |
 
-| Ders Kodu | Dersin Tam Adı | İlgili Alan / Atölye |
-| :--- | :--- | :--- |
-| **AHPS10** | ARAÇLARDA HİDROLİK VE PNOMATİK SİSTEMLE | Meslek / Atölye Dersi |
-| **AKA11** | ARK KAYNAK ATÖLYESİ (*) 11 | Meslek / Atölye Dersi |
-| **AKT11** | ARK KAYNAK TEKNOLOJİSİ | Meslek / Atölye Dersi |
-| **BDD10** | BİLGİSAYARLA DEVRE DİZAYNI 10 | Meslek / Atölye Dersi |
-| **BDMÇ10** | BİLGİSAYARLI TEMEL MOBİLYA ÇİZİMİ 10 | Meslek / Atölye Dersi |
-| **BDTM10** | BİLGİSAYAR DESTEKLİ TESİSAT MESLEK RESMİ | Meslek / Atölye Dersi |
-| **BKM10** | BİLGİSAYARDA KATI MODELLEME 10 | Meslek / Atölye Dersi |
-| **BKOR10** | BAKIM ONARIM MESLEK RESMİ 10 | Meslek / Atölye Dersi |
-| **BKT11** | BİLGİSAYAR DESTEKLİ TASARIM (CAD) | Meslek / Atölye Dersi |
-| **BKÜ11** | BİLGİSAYAR KONTROLLÜ ÜRETİM (CNC/CAM) (* | Meslek / Atölye Dersi |
-| **BSBÇ9** | BİLGİSAYARDA AHŞAP BİRLEŞTİRME ÇİZİMİ 9 | Meslek / Atölye Dersi |
-| **BTY** | SEÇMELİ BİLİŞİM TEKNOLOJİLERİ VE YAZILIM | Meslek / Atölye Dersi |
-| **BYG11** | SEÇMELİ BİYOGAZ SİSTEMLERİ 11 | Meslek / Atölye Dersi |
-| **BİMR11** | BİLGİSAYARLI İÇ MEKAN RESMİ | Meslek / Atölye Dersi |
-| **DYKS11** | DİZEL YAKIT SİSTEMLERİ 11 | Meslek / Atölye Dersi |
-| **EE11** | ENDÜSTRİYEL ELEKTRONİK 11 | Meslek / Atölye Dersi |
-| **EEES10** | ELEKTRİK-ELEKTRONİK ESASLARI 10 | Meslek / Atölye Dersi |
-| **EMB9** | ENDÜSTRİYEL MALZEME BİLGİSİ 9 | Meslek / Atölye Dersi |
-| **ETA** | TESİSAT ATÖLYESİ 10 | Meslek / Atölye Dersi |
-| **GDMİK9** | GIDA MİKROBİYOLOJİSİ (*) 9 | Meslek / Atölye Dersi |
-| **GHS9** | GIDA HİJYENİ VE SANİTASYON 9 | Meslek / Atölye Dersi |
-| **GKKT11** | GAZ KORUMALI KAYNAK TEKNOLOJİSİ 11 | Meslek / Atölye Dersi |
-| **GKOKA1** | GAZ KORUMALI KAYNAK ATÖLYESİ 11 | Meslek / Atölye Dersi |
-| **GKİM10** | GIDA KİMYASI 10 | Meslek / Atölye Dersi |
-| **GMAT** | GIDA MUHAFAZA VE AMBALAJLAMA TEKNİKLERİ | Meslek / Atölye Dersi |
-| **GMBA** | GIDALARDA MİKROBİYOLOJİK ANALİZLER 10 | Meslek / Atölye Dersi |
-| **GTKKA11** | GIDALARDA TEMEL KALİTE KONTROL ANALİZLER | Meslek / Atölye Dersi |
-| **GYCA11** | GAZ YAKICI CİHAZLAR ATÖLYESİ 11 | Meslek / Atölye Dersi |
-| **GÜTK11** | GIDA ÜRETİM TEKNOLOJİLERİ (*) | Meslek / Atölye Dersi |
-| **GİMK11** | GIDA İŞLEME MAKİNELERİ 11 | Meslek / Atölye Dersi |
-| **HKSA11** | HAREKET KONTROL SİSTEMLERİ ATÖLYESİ (*) | Meslek / Atölye Dersi |
-| **IDTA10** | ISITMA VE DOĞALGAZ TESİSATI ATÖLYESİ | Meslek / Atölye Dersi |
-| **KKA10** | KUMANDA VE KONTROL ATÖLYESİ 10 | Meslek / Atölye Dersi |
-| **KT12** | SEÇMELİ KALIPLAMA TEKNİKLERİ 12 | Meslek / Atölye Dersi |
-| **KİLM12** | SEÇMELİ KALDIRMA VE İLETME MAKİNALARI 12 | Meslek / Atölye Dersi |
-| **LABT9** | LABORATUVAR TEKNİĞİ 9 | Meslek / Atölye Dersi |
-| **MAS10** | MASİF MOBİLYA ÜRETİMİ | Meslek / Atölye Dersi |
-| **MB10** | MAKİNE BİLGİSİ 10 | Meslek / Atölye Dersi |
-| **MDK11** | MİKRODENETLEYİCİ VE KODLAMA 11 | Meslek / Atölye Dersi |
-| **MEBO11** | MEKANİK BAKIM ONARIM (*) | Meslek / Atölye Dersi |
-| **MENZ11** | MEKANİZMALAR 11 | Meslek / Atölye Dersi |
-| **MLZB10** | MALZEME BİLGİSİ 10 | Meslek / Atölye Dersi |
-| **MTDÖ10** | MADDEDE TEMEL DEĞİŞİMLER VE ÖLÇÜMLER 10 | Meslek / Atölye Dersi |
-| **MYVMİ11** | SEÇMELİ METAL YÜZEY VE MUAYENE İŞLEMLERİ | Meslek / Atölye Dersi |
-| **MİMR12** | MOBİLYA İÇ MEKAN RESMİ 12 | Meslek / Atölye Dersi |
-| **OA11** | OTOMASYON ATÖLYESİ (*) | Meslek / Atölye Dersi |
-| **OEA10** | OTOMOTİV ELEKTROMEKANİK ATÖLYESİ 10 | Meslek / Atölye Dersi |
-| **OKS11** | OTOMATİK KONTROL SİSTEMLERİ | Meslek / Atölye Dersi |
-| **OMRS11** | OTOMOTİV MESLEK RESİM 11 | Meslek / Atölye Dersi |
-| **OTRS10** | OTOMOTİV TEKNİK RESİM 10 | Meslek / Atölye Dersi |
-| **PA11** | PANO ATÖLYESİ (*) | Meslek / Atölye Dersi |
-| **PMÜ11** | PANEL MOBİLYA ÜRETİMİ (*) 11 | Meslek / Atölye Dersi |
-| **SAES** | SEÇMELİ AKILLI EV SİSTEMLERİ | Meslek / Atölye Dersi |
-| **SAVAS12** | SEÇMELİ SU ARITMA VE ATIK SU 12 | Meslek / Atölye Dersi |
-| **SBDTÇ11** | SEÇMELİ BİLGİSAYAR DESTEKLİ ÇİZİM VE TAS | Meslek / Atölye Dersi |
-| **SBES** | SEÇMELİ BESLENME 11 | Meslek / Atölye Dersi |
-| **SBKMR1** | SEÇMELİ BİLGİSAYARLI MOBİLYA SÜSLEME RES | Meslek / Atölye Dersi |
-| **SBİMT11** | SEÇMELİ BİLGİSAYARLI İŞYERİ MEKAN TASARI | Meslek / Atölye Dersi |
-| **SCD11** | SEÇMELİ CİSİMLERİN DAYANIMI 11 | Meslek / Atölye Dersi |
-| **SCNC** | BİLGİSAYAR KONTROLLÜ MAKİNELERDE ÜRETİM | Meslek / Atölye Dersi |
-| **SCĞ12** | SEÇMELİ COĞRAFYA1 12 | Meslek / Atölye Dersi |
-| **SEKS12** | SEÇMELİ EMİSYON KONTROL SİSTEMLERİ 12 | Meslek / Atölye Dersi |
-| **SEÇK1** | SEÇMELİ KİMYA1 11 | Meslek / Atölye Dersi |
-| **SF12** | SEÇMELİ FELSEFE1 12 | Meslek / Atölye Dersi |
-| **SFZ12** | SEÇMELİ FİZİK2 12 | Meslek / Atölye Dersi |
-| **SGAK12** | SEÇMELİ GIDA AMBALAJLARI VE KONTROLÜ 12 | Meslek / Atölye Dersi |
-| **SGKS** | SEÇMELİ GEÇİŞ KONTROL SİSTEMLERİ | Meslek / Atölye Dersi |
-| **SHİ11** | SEÇMELİ HUBUBAT İŞLEME 11 | Meslek / Atölye Dersi |
-| **SIP11** | SEÇMELİ ISI POMPALARI 11 | Meslek / Atölye Dersi |
-| **SKM12** | SEÇMELİ KİMYA2 12 | Meslek / Atölye Dersi |
-| **SKT12** | SEÇMELİ İLERİ KAYNAK YÖNTEMLERİ 2 | Meslek / Atölye Dersi |
-| **SKVM12** | SEÇMELİ KEŞİF VE MALİYET 12 | Meslek / Atölye Dersi |
-| **SLTM11** | SEÇMELİ ALTERNATİF MOTORLAR VE YAKIT SİS | Meslek / Atölye Dersi |
-| **SM12** | SEÇMELİ MATEMATİK3 12 | Meslek / Atölye Dersi |
-| **SMB12** | SEÇMELİ MALZEME BİLGİSİ 12 | Meslek / Atölye Dersi |
-| **SME11** | SEÇMELİ MAKİNA ELAMANLARI | Meslek / Atölye Dersi |
-| **SMLB11** | SEÇMELİ MALZEME BİLGİSİ 11 | Meslek / Atölye Dersi |
-| **SMMİ11** | SEÇMELİ MOBİLYA MONTAJ İŞLEMLERİ 11 | Meslek / Atölye Dersi |
-| **SPB12** | SEÇMELİ OTOMOTİV PERİYODİK BAKIM | Meslek / Atölye Dersi |
-| **SPRG** | SEÇMELİ PROGRAMLAMA | Meslek / Atölye Dersi |
-| **SPTU** | SEÇMELİ PROJE TASARIMI VE UYGULAMALARI | Meslek / Atölye Dersi |
-| **SSİ12** | SEÇMELİ SÜT İŞLEME 12 | Meslek / Atölye Dersi |
-| **SÇDRİ12** | SEÇMELİ DOĞRAMA RESMİ VE İMALATI 12 | Meslek / Atölye Dersi |
-| **SÇF11** | SEÇMELİ FİZİK 11 | Meslek / Atölye Dersi |
-| **SÇY12** | SEÇMELİ ÇELİK YAPILANDIRMA 12 | Meslek / Atölye Dersi |
-| **SİMU11** | SEÇMELİ İLERİ MİKRODENETLEYİCİ UYGULAMAL | Meslek / Atölye Dersi |
-| **TASMB11** | TASARIM VE MALZEME BİLGİSİ | Meslek / Atölye Dersi |
-| **TAUY9** | TEMEL AHÂªAP UYGULAMALARI (*) | Meslek / Atölye Dersi |
-| **TEEAT9** | TEMEL ELEKTRİK-ELEKTRONİK (*) | Meslek / Atölye Dersi |
-| **TEL11** | TEMEL ELEKTRİK 11 | Meslek / Atölye Dersi |
-| **TELK10** | TEMEL ELEKTRİK 10 | Meslek / Atölye Dersi |
-| **TESP11** | TESİSAT PROJELERİ 11 | Meslek / Atölye Dersi |
-| **TKA10** | TEMEL KAYNAK ATÖLYESİ 10 | Meslek / Atölye Dersi |
-| **TKT10** | TEMEL KAYNAK TEKNOLOJİSİ 10 | Meslek / Atölye Dersi |
-| **TMTİ9** | TEMEL METAL İŞLEMLERİ (*) | Meslek / Atölye Dersi |
-| **TOTEK9** | TEMEL OTOMOTİV TEKNOLOJİSİ (*) | Meslek / Atölye Dersi |
-| **TRE** | TEKNİK RESİM | Meslek / Atölye Dersi |
-| **TRES9** | TEKNİK RESİM 9 | Meslek / Atölye Dersi |
-| **TTİ9** | TEMEL TESİSAT İŞLEMLERİ (*) 9 | Meslek / Atölye Dersi |
-| **TİİŞ9** | TEMEL İMALAT İŞLEMLERİ 9 | Meslek / Atölye Dersi |
-| **YÜY11** | YENİLİKÇİ ÜRETİM YÖNTEMLERİ 11 | Meslek / Atölye Dersi |
-| **ÖLÇK10** | ÖLÇME VE KONTROL 10 | Meslek / Atölye Dersi |
-| **İMLY10** | İMALAT YÖNTEMLERİ (*) 10 | Meslek / Atölye Dersi |
+## Ders başlama ve bitiş saatleri
 
----
+| Saat | Pazartesi–Perşembe | Cuma |
+| --- | --- | --- |
+| 1 | 08:20 – 09:00 | 08:20 – 09:00 |
+| 2 | 09:10 – 09:50 | 09:10 – 09:50 |
+| 3 | 10:00 – 10:40 | 10:00 – 10:40 |
+| 4 | 10:45 – 11:25 | 10:45 – 11:25 |
+| 5 | 11:30 – 12:10 | 11:30 – 12:10 |
+| 6 | 13:20 – 14:00 | 13:30 – 14:10 |
+| 7 | 14:10 – 14:50 | 14:20 – 15:00 |
+| 8 | 14:55 – 15:35 | 15:05 – 15:45 |
+| 9 | 15:40 – 16:20 | 15:50 – 16:30 |
+| 10 | 16:25 – 17:05 | 16:35 – 17:15 |
 
-### 4. MESEM (Mesleki Eğitim Merkezi) Çıraklık Ders Kısaltmaları
-
-| Ders Kodu | Dersin Tam Adı | Kapsam |
-| :--- | :--- | :--- |
-| **IŞ10** | İŞ GÜVENLİĞİ VE SAĞLIĞI 10 | Mesleki Eğitim Merkezi (MESEM) |
-| **OKSB12** | ÇIRAKLIK OTOMATİK KONTROL SİSTEMLERİ 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇAKG12** | ÇIRAKLIK ARAÇLARDA KONFOR VE GÜVENLİK 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇBDÇ** | ÇIRAKLIK BİLGİSAYAR DESTEKLİ ÇİZİM | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇBKT12** | ÇIRAKLIK BİLGİSAYAR DESTEKLİ TASARIM 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇBKTÜ12** | ÇIRAKLIK BİLGİSAYAR KONTROLLÜ ÜRETİM 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇBOMR11** | ÇIRAKLIK BAKIM ONARIM MESLEK RESMİ 11 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇEDB9** | ÇIRAKLIK TÜRK DİLİ VE EDEBİYATI 9 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇHP12** | ÇIRAKLIK HİDROLİK PNÖMATİK 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMAT11** | ÇIRAKLIK MATEMATİK 11 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMAT9** | ÇIRAKLIK MATEMATİK 9 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMBO12** | ÇIRAKLIK MOTOR BAKIM VE ONARIM 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMKNZ12** | ÇIRAKLIK MEKANİZMALAR 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMMB** | ÇIRAKLIK MESLEK MATEMATİĞİ VE BİLGİSİ | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇMR11** | ÇIRAKLIK MESLEK RESMİ 11 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇOP12** | ÇIRAKLIK OTOMOTİV PERİYODİK BAKIM 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇTE11** | ÇIRAKLIK TEMEL ELEKTRİK 11 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇİA12** | ÇIRAKLIK İŞLETMELERDE BECERİ EĞİTİMİ 12 | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇİY** | ÇIRAKLIK İMALAT YÖNTEMLERİ | Mesleki Eğitim Merkezi (MESEM) |
-| **ÇİİŞ** | ÇIRAKLIK İMALAT İŞLEMLERİ | Mesleki Eğitim Merkezi (MESEM) |
-
----
-
-### 5. Haftalık Ders Başlama ve Bitiş Saatleri Çizelgesi
-
-#### Pazartesi, Salı, Çarşamba ve Perşembe Günleri
-| Ders Saati | Başlama | Bitiş | Süre |
-| :---: | :---: | :---: | :---: |
-| 1. Ders | 08:20 | 09:00 | 40 dk |
-| 2. Ders | 09:10 | 09:50 | 40 dk |
-| 3. Ders | 10:00 | 10:40 | 40 dk |
-| 4. Ders | 10:45 | 11:25 | 40 dk |
-| 5. Ders | 11:30 | 12:10 | 40 dk |
-| 6. Ders | 13:20 | 14:00 | 40 dk |
-| 7. Ders | 14:10 | 14:50 | 40 dk |
-| 8. Ders | 14:55 | 15:35 | 40 dk |
-| 9. Ders | 15:40 | 16:20 | 40 dk |
-| 10. Ders | 16:25 | 17:05 | 40 dk |
-
-#### Cuma Günü (Cuma Namazı Öğle Arası Düzenlemesi)
-| Ders Saati | Başlama | Bitiş | Süre |
-| :---: | :---: | :---: | :---: |
-| 1. Ders | 08:20 | 09:00 | 40 dk |
-| 2. Ders | 09:10 | 09:50 | 40 dk |
-| 3. Ders | 10:00 | 10:40 | 40 dk |
-| 4. Ders | 10:45 | 11:25 | 40 dk |
-| 5. Ders | 11:30 | 12:10 | 40 dk |
-| 6. Ders | 13:30 | 14:10 | 40 dk |
-| 7. Ders | 14:20 | 15:00 | 40 dk |
-| 8. Ders | 15:05 | 15:45 | 40 dk |
-| 9. Ders | 15:50 | 16:30 | 40 dk |
-| 10. Ders | 16:35 | 17:15 | 40 dk |
+Kaynak PDF SHA-256: `4c604f30004057bec573ff279828e38ded835ccf49009f13c9f12cc00883db99`

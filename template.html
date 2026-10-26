@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Karaman MTAL — Ders ve Öğretmen Takip Sistemi</title>
+  <style>/* STYLES */</style>
+</head>
+<body>
+  <header class="app-header"><div class="header-inner">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">KM</div><div><h1>Karaman MTAL Ders Takip</h1><p id="school-stats">Haftalık ders ve öğretmen programı</p></div></div>
+    <button id="now-button" class="primary-button" type="button">Şu Anı Seç</button>
+  </div></header>
+  <main>
+    <div class="intro"><div><h2>Haftalık ders programı</h2><p>Gün, ders saati, sınıf ve öğretmene göre planlanan dersleri bulun. Ortak derslerde tüm öğretmenler birlikte gösterilir.</p></div><span class="source-pill">PDF’den doğrulandı</span></div>
+    <section class="filter-panel" aria-labelledby="filter-heading">
+      <div class="filter-heading"><h2 id="filter-heading">Programı filtrele</h2><button id="reset-button" type="button" class="text-button">Filtreleri temizle</button></div>
+      <div class="filters">
+        <div class="filter-field"><label for="filter-day">Gün</label><select id="filter-day"></select></div>
+        <div class="filter-field"><label for="filter-period">Ders saati</label><select id="filter-period"></select></div>
+        <div class="filter-field"><label for="filter-class">Sınıf / grup</label><select id="filter-class"></select></div>
+        <div class="filter-field"><label for="filter-teacher">Öğretmen</label><select id="filter-teacher"></select></div>
+      </div>
+      <p class="filter-note">Sınıf ve birleşik grup kodları kaynak PDF’deki haliyle ayrı listelenir. Ders kodları belgede yazıldığı şekilde korunur.</p>
+    </section>
+    <p id="current-status" class="current-status" role="status" aria-live="polite"></p>
+    <p id="teacher-info" class="teacher-info" hidden></p>
+    <div class="results-bar" role="status" aria-live="polite"><p id="filter-summary" class="filter-summary"></p><span id="result-count" class="result-count"></span></div>
+    <div id="results-container" class="results"></div>
+    <div id="empty-state" class="empty-state" hidden><h2>Ders kaydı bulunamadı</h2><p id="empty-description"></p></div>
+    <noscript><p class="noscript">Programı filtrelemek için tarayıcınızda JavaScript’i etkinleştirin.</p></noscript>
+  </main>
+  <footer><p><strong>T.C. Karaman Valiliği · Karaman Mesleki ve Teknik Anadolu Lisesi</strong></p><p id="source-info"></p><p>Haftalık planı gösterir. Saat dilimi: Europe/Istanbul.</p></footer>
+  <script id="school-data" type="application/json">/* DATA */</script>
+  <script>/* CORE */</script>
+  <script>/* UI */</script>
+</body>
+</html>

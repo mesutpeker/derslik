@@ -1,43 +1,56 @@
-# 🏫 Karaman MTAL — Ders ve Öğretmen Takip Sistemi
+# Karaman MTAL — Ders ve Öğretmen Takip
 
-**Karaman Mesleki ve Teknik Anadolu Lisesi** 2026-2027 Öğretim Yılı (12/10/2026) Haftalık Ders Programı, Nöbet ve Öğretmen Takip Portalı.
+Verilen dört sayfalık öğretmen çarşaf programından yeniden üretilmiş haftalık ders uygulaması.
 
-Bu uygulama; gün, ders saati ve sınıf kriterlerine göre öğretmenlerin hangi sınıfta ve atölyede derste olduğunu, boşta olan öğretmenleri ve birleşik sınıfların durumunu anlık olarak gösteren mobil öncelikli, kompakt bir web uygulamasıdır.
+- 72 öğretmen, 45 sınıf/grup, 181 ders kodu.
+- 1.347 öğretmen ataması, 1.264 ayrı ders; 83 derste iki öğretmen birlikte yer alır.
+- 87 MESEM ataması eksiksiz korunur. Kaynak PDF’deki iki boş derslik tahmin edilmez.
+- Gün, saat, sınıf/grup ve öğretmen filtreleri; ortak derslerde tüm öğretmenler.
+- Türkiye saat dilimine göre ders içi, ders arası, ders öncesi/sonrası ve hafta sonu ayrımı.
+- CSS, JavaScript ve veri `index.html` içinde gömülüdür. CDN, harici font, sunucu veya çalışma zamanı kurulumu gerekmez. HTML dosyasını tarayıcıda açabilirsiniz.
 
----
+## Verinin sınırları
 
-## 🚀 Özellikler
+Uygulama planlanan haftalık programı gösterir. PDF’de bulunmayan tarih, öğretim yılı, branş veya uzun ders adı eklenmez. Sınıf/grup kodları kaynakta yazıldıkları şekilde ayrı tutulur; birleşik kodlardan başka sınıflara ders kopyalanmaz. Öğretmen satırı boşsa ders ataması üretilmez.
 
-* **📱 Mobil Öncelikli & Kompakt Tasarım:** Küçük ekranlarda tek parmakla rahat kullanım için optimize edilmiş 3 açılır menü (Gün, Ders Saati, Sınıf).
-* **⚡ Anlık Sorgulama:** 
-  * 72 Öğretmen, 43 Sınıf (ve dal şubeleri), 1.400+ ders saati.
-  * O saatte derste olan tüm öğretmenleri, sınıflarını ve atölyelerini listeler.
-* **⚠️ Akıllı Birleşik Sınıf Uyarıları:**
-  * `10A-D`, `10B-G`, `11C-D` gibi birleşik sınıflar seçildiğinde, o gün kültür dersi günüyse veya seçilen saat boşsa anında bilgilendirme yapar.
-  * Tek tıkla ilgili ana şubelere (`👉 10-A Sınıfına Bak`, `👉 10-D Sınıfına Bak`) geçiş butonları sunar.
-* **🕒 Otomatik "Şu An" Butonu:** Cihazınızın sistem saatine göre bugünün gün ve ders saatini tek tıkla algılar.
-* **📖 Kapsamlı Dokümantasyon:** Tüm öğretmen ve ders kısaltmalarının detaylı açıklamalarını içeren [`DERS_VE_OGRETMEN_KISALTMALARI.md`](DERS_VE_OGRETMEN_KISALTMALARI.md) kılavuzu.
-* **📦 Sıfır Bağımlılık & Çevrimdışı Çalışma:** Tek bir HTML dosyasında gömülü veriyle sunucu veya internet gerektirmeden çalışır.
+Önceki JSON şeması yerine `schema_version: 2` kullanılır. `assignments` kaynak hücreleri, `lessons` aynı dersi birlikte veren öğretmenleri içerir. Her atamada kaynak sayfa, öğretmen satırı, ders sütunu ve hücre koordinatları saklanır. JSON verinin tek kaynağıdır; HTML bu dosyadan üretilir.
 
----
+## Dosyalar
 
-## 🌐 Canlı Yayın (GitHub Pages)
+| Dosya | Amaç |
+| --- | --- |
+| `index.html` | Tek başına çalışan uygulama |
+| `okul_verisi.json` | PDF’den çıkarılan asıl veri |
+| `app-core.js` / `app-ui.js` | Uygulama mantığı ve arayüz kaynağı |
+| `styles.css` / `template.html` | Çevrimdışı görünüm ve HTML şablonu |
+| `PROGRAM_KAYITLARI.md` | 1.347 atamanın okunabilir tam dökümü |
+| `DERS_VE_OGRETMEN_KISALTMALARI.md` | Öğretmen toplamları, sınıf ve ham ders kodları dizini |
+| `scripts/extract_pdf.py` | Koordinatlar ve çizilmiş tablo üzerinden veri çıkarımı |
+| `scripts/verify_pdf.py` | pypdf ham komutları/font tablolarıyla bağımsız doğrulama |
+| `tests/` | Tekrarlanabilir testler, PDF referansı ve sonuçlar |
 
-Uygulamayı doğrudan web tarayıcınızda açmak için:  
-👉 **[https://mesutpeker.github.io/derslik/](https://mesutpeker.github.io/derslik/)**
+## Yeniden üretme ve test
 
----
+Uygulamanın kullanımı için kurulum gerekmez. Aşağıdaki komutlar geliştirici/veri doğrulama akışıdır; Python 3 ve Node.js gerektirir. PDF kitaplıkları `requirements.txt` dosyasında listelenir.
 
-## 📂 Dosya Yapısı
+```sh
+python3 -m pip install -r requirements.txt
+python3 scripts/extract_pdf.py "/tam/yol/Çarşaf El Programları.pdf"
+python3 scripts/verify_pdf.py "/tam/yol/Çarşaf El Programları.pdf"
+python3 scripts/build_app.py
+python3 scripts/build_reference.py
+python3 tests/test_extraction.py "/tam/yol/Çarşaf El Programları.pdf"
+node tests/test_app.cjs
+```
 
-* `index.html` — Mobil uyumlu, kendi kendine yeten interaktif web uygulaması
-* `okul_verisi.json` — Yapılandırılmış JSON veri tabanı
-* `DERS_VE_OGRETMEN_KISALTMALARI.md` — 72 öğretmen ve 181 ders kodunun detaylı fihristi
-* `README.md` — Proje tanıtım ve kullanım kılavuzu
+Çıkarıcı bu PDF’nin dört sayfalık, 50 ders sütunlu düzenine göre hazırlanmıştır. Beklenmeyen bir sayfa/tablo düzeninde sessizce tahmin yapmak yerine hata verir. Testleri Python’un `-O` seçeneği olmadan çalıştırın.
 
----
+`tests/pdf-reference.json`, uygulama verisinden kopyalanmaz: bağımsız pypdf çözücüsünün doğrudan PDF’den okuduğu referanstır. Testler 3.600 dolu/boş hücreyi, 221.628 filtre birleşimini, haftanın 10.080 dakikasını, 7.788 arayüz birleşimini ve kasıtlı bozulmuş veri örneklerini denetler.
 
-### Kurum Bilgisi
-* **Kurum:** T.C. KARAMAN VALİLİĞİ — Karaman Mesleki ve Teknik Anadolu Lisesi
-* **Okul Müdürü:** Nebi SARI
-* **Program Tarihi:** 12/10/2026
+`tests/mobile-preview.html` 390 piksel genişliğinde görsel kontrol içindir. Kaynak veriyi değiştirmez. Test sonuçları ilgili `*-verification.json` dosyalarındadır.
+
+## Canlı yayın
+
+[Uygulamayı aç](https://mesutpeker.com/derslik/) · [GitHub deposu](https://github.com/mesutpeker/derslik)
+
+GitHub Pages, `main` dalının kök dizininden yayınlanır. Mevcut HTTPS ve alan adı ayarları kullanılır.

@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "shared_teachers",
+      "passed": true
+    },
+    {
+      "case": "mesem",
+      "passed": true
+    },
+    {
+      "case": "history_teacher",
+      "passed": true
+    },
+    {
+      "case": "motor_teacher",
+      "passed": true
+    },
+    {
+      "case": "unspecified_room",
+      "passed": true
+    },
+    {
+      "case": "corrected_room",
+      "passed": true
+    },
+    {
+      "case": "empty_teacher_row",
+      "passed": true
+    },
+    {
+      "case": "after_school_and_filter_preserved",
+      "passed": true
+    },
+    {
+      "case": "390px_mobile_visual_review",
+      "passed": true,
+      "method": "390px iframe; native accessibility tree and screenshot; both teachers retained"
+    },
+    {
+      "case": "full_week_all_cards_and_teachers",
+      "passed": true
+    },
+    {
+      "case": "no_external_runtime_assets",
+      "passed": true
+    },
+    {
+      "case": "individual_teacher_week",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "file:// açılışı tarayıcı güvenlik politikası nedeniyle çalıştırılamadı; HTTP üzerinden gerçek tarayıcı ve dış kaynak denetimleri yapıldı."
+  ]
+}

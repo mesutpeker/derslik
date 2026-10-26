@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "reproducible_extraction": true,
+  "visual_regression_fixtures": 13,
+  "deliberately_corrupted_datasets_rejected": 20,
+  "rejected_cases": [
+    "wrong_teacher",
+    "wrong_d",
+    "wrong_p",
+    "wrong_c",
+    "wrong_l",
+    "wrong_r",
+    "missing_assignment",
+    "duplicate_assignment",
+    "invented_empty_period",
+    "missing_mesem",
+    "lost_shared_teacher",
+    "guessed_unspecified_room",
+    "wrong_friday_time",
+    "wrong_teacher_hours",
+    "missing_class_option",
+    "missing_course_code",
+    "wrong_source_row",
+    "wrong_source_pdf",
+    "wrong_source_column",
+    "wrong_source_bbox"
+  ]
+}
