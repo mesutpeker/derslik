@@ -15,6 +15,7 @@ main{max-width:920px;margin:auto;padding:24px}.intro{display:flex;align-items:fl
 footer{max-width:920px;margin:8px auto 0;padding:20px 24px 30px;border-top:1px solid #d9e2ed;color:#6a7c92;text-align:center;font-size:11px;line-height:1.8;overflow-wrap:anywhere}footer strong{color:#455c78}footer p{margin:3px 0}.noscript{padding:20px;color:#933;background:#fff}
 @media(min-width:1000px){.filters{grid-template-columns:.9fr 1.25fr 1fr 1.5fr}.filter-field select{font-size:12px}}
 @media(max-width:540px){.header-inner{padding:16px;align-items:flex-start;gap:10px}.brand{gap:9px}.brand-mark{padding:10px 7px;font-size:12px;border-radius:10px}.brand h1{font-size:15px}.brand p{font-size:10px}.primary-button{padding:8px 10px;font-size:11px;min-height:40px}main{padding:18px 14px}.intro{display:block}.intro h2{font-size:19px}.source-pill{display:inline-block;margin-top:10px}.filters{grid-template-columns:1fr}.filter-panel{padding:16px}.filter-field select{font-size:14px}.results-bar{align-items:flex-start}.result-count{font-size:10px;padding:7px}.lesson-card{padding:14px}.card-time{margin-left:0}.card-top{gap:8px}.card-day{font-size:11px}.card-body{gap:8px}.room{font-size:11px;max-width:155px}.teachers li{display:block}.source-tag{display:block;margin-top:4px}.teacher-name{font-size:12px}footer{margin:0 14px;padding:18px 0 25px}}
+.branch-note{font-size:11px;color:#335b82;background:#edf4fb;border-radius:7px;padding:8px 10px;margin:0 0 12px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -23,16 +24,16 @@ footer{max-width:920px;margin:8px auto 0;padding:20px 24px 30px;border-top:1px s
     <button id="now-button" class="primary-button" type="button">Şu Anı Seç</button>
   </div></header>
   <main>
-    <div class="intro"><div><h2>Haftalık ders programı</h2><p>Gün, ders saati, sınıf ve öğretmene göre planlanan dersleri bulun. Ortak derslerde tüm öğretmenler birlikte gösterilir.</p></div><span class="source-pill">PDF’den doğrulandı</span></div>
+    <div class="intro"><div><h2>Haftalık ders programı</h2><p>Gün, ders saati ve sınıf düzeyini seçin. Şubelerin derslerini ve öğretmenlerini ayrı kartlarda görün.</p></div><span class="source-pill">PDF’den doğrulandı</span></div>
     <section class="filter-panel" aria-labelledby="filter-heading">
       <div class="filter-heading"><h2 id="filter-heading">Programı filtrele</h2><button id="reset-button" type="button" class="text-button">Filtreleri temizle</button></div>
       <div class="filters">
         <div class="filter-field"><label for="filter-day">Gün</label><select id="filter-day"></select></div>
         <div class="filter-field"><label for="filter-period">Ders saati</label><select id="filter-period"></select></div>
-        <div class="filter-field"><label for="filter-class">Sınıf / grup</label><select id="filter-class"></select></div>
+        <div class="filter-field"><label for="filter-class">Sınıf düzeyi</label><select id="filter-class"></select></div>
         <div class="filter-field"><label for="filter-teacher">Öğretmen</label><select id="filter-teacher"></select></div>
       </div>
-      <p class="filter-note">Sınıf ve birleşik grup kodları kaynak PDF’deki haliyle ayrı listelenir. Ders kodları belgede yazıldığı şekilde korunur.</p>
+      <p class="filter-note">Ortak kültür derslerinde şubeler ayrı gösterilir; ders, saat ve öğretmen aynıdır. Atölye dersleri ilgili şubenin kartında yer alır.</p>
     </section>
     <p id="current-status" class="current-status" role="status" aria-live="polite"></p>
     <p id="teacher-info" class="teacher-info" hidden></p>
@@ -52,11 +53,51 @@ const DerslikCore = (() => {
   });
   const minutes = value => Number(value.slice(0, 2)) * 60 + Number(value.slice(3));
 
+  // Restore the school's former branch relationships without changing PDF cells.
+  // Culture courses are shared; vocational courses remain with their own branch.
+  const cultureCourses = {
+    '10': new Set(['BED10', 'BİY10', 'COĞ10', 'DİN10', 'FEL10', 'FİZ10', 'KİM10', 'MAT10', 'REHB', 'SAK', 'SDE', 'STDB', 'TAR10', 'TED10', 'İNG10']),
+    '11': new Set(['BED11', 'DİN11', 'FELS11', 'REHB', 'SAĞB 9', 'SOTT11', 'STDB', 'TAR11', 'TED11', 'İKM11', 'İNG11']),
+    '12': new Set(['DİN12', 'SBYY12', 'SKAM', 'TED12', 'İNG12', 'İNKT12'])
+  };
+  const culturePartners = {'10-A': '10-D', '10-B': '10-G', '11-C': '11-D',
+    '11-B': '11-G', '12-A': '12-E', '12-B': '12-G', '12-C': '12-D'};
+  const workshopBranches = {
+    '10A-D': ['10-D', 'Motor atölye grubu'], '10B-G': ['10-G', 'Gıda atölye grubu'],
+    '11B-G': ['11-G', 'Gıda atölye grubu'], '11C-D': ['11-D', 'Motor atölye grubu'],
+    '12A-E': ['12-E', 'Elektrik atölye grubu'], '12B-G': ['12-G', 'Gıda atölye grubu'],
+    '12C-D': ['12-D', 'Motor atölye grubu'],
+    '9C-İ': ['9-C', 'Tesisat grubu'], '10C-İ': ['10-C', 'Tesisat grubu'],
+    '11C-İ': ['11-C', 'Tesisat grubu'], '12C-İ': ['12-C', 'Tesisat grubu']
+  };
+  const views = new WeakMap();
+  const gradeOf = className => String(parseInt(className, 10));
+
+  function classView(data) {
+    if (views.has(data)) return views.get(data);
+    const lessons = data.lessons.flatMap(source => {
+      const workshop = workshopBranches[source.c];
+      const partner = culturePartners[source.c];
+      const common = partner && cultureCourses[gradeOf(source.c)].has(source.l);
+      const classes = workshop ? [workshop[0]] : common ? [source.c, partner] : [source.c];
+      return classes.map(c => ({...source, id: `${source.id}@${c}`, c, grade: gradeOf(c),
+        source_lesson_id: source.id, source_class: source.c,
+        culture_classes: common ? [source.c, partner] : [],
+        group_label: workshop ? workshop[1] : ''}));
+    });
+    lessons.sort((a, b) => data.days.indexOf(a.d) - data.days.indexOf(b.d) || a.p - b.p ||
+      a.c.localeCompare(b.c, 'tr', {numeric: true}) || a.id.localeCompare(b.id));
+    const result = {lessons, classes: [...new Set(lessons.map(l => l.c))],
+      grades: [...new Set(lessons.map(l => l.grade))].sort((a, b) => Number(a) - Number(b))};
+    views.set(data, result);
+    return result;
+  }
+
   function filterLessons(data, filters) {
-    return data.lessons.filter(item =>
+    return classView(data).lessons.filter(item =>
       (filters.day === ALL || item.d === filters.day) &&
       (filters.period === ALL || String(item.p) === String(filters.period)) &&
-      (filters.className === ALL || item.c === filters.className) &&
+      (filters.grade === ALL || item.grade === String(filters.grade)) &&
       (filters.teacher === ALL || item.teacher_ids.includes(filters.teacher))
     );
   }
@@ -102,16 +143,17 @@ const DerslikCore = (() => {
   const escapeHtml = value => String(value).replace(/[&<>"']/g, c =>
     ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 
-  return {ALL, filterLessons, currentSelection, timeRange, periodLabel, escapeHtml};
+  return {ALL, classView, filterLessons, currentSelection, timeRange, periodLabel, escapeHtml};
 })();
 if (typeof module !== 'undefined') module.exports = DerslikCore;
 </script>
-  <script>/* UI uses only canonical PDF lessons; it never creates inferred class aliases. */
+  <script>/* Grade filtering with separate branch cards; source PDF assignments stay intact. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
   const data = JSON.parse($('school-data').textContent);
   const core = DerslikCore;
+  const view = core.classView(data);
   const esc = core.escapeHtml;
   const teachers = new Map(data.teachers.map(t => [t.id, t]));
   const assignments = new Map(data.assignments.map(a => [a.id, a]));
@@ -124,14 +166,12 @@ if (typeof module !== 'undefined') module.exports = DerslikCore;
   }
 
   function populate() {
-    $('school-stats').textContent = `${data.teachers.length} öğretmen · ${data.classes.length} sınıf/grup · ${data.lessons.length.toLocaleString('tr-TR')} ders`;
+    $('school-stats').textContent = `${data.teachers.length} öğretmen · ${view.classes.length} sınıf · ${data.lessons.length.toLocaleString('tr-TR')} ders`;
     $('source-info').textContent = `${data.source.filename} · ${data.source.pages} sayfa`;
     $('filter-day').appendChild(option('ALL', 'Tüm günler'));
     data.days.forEach(day => $('filter-day').appendChild(option(day, day)));
-    $('filter-class').appendChild(option('ALL', `Tüm sınıflar (${data.classes.length})`));
-    [...data.classes].sort((a, b) => a.localeCompare(b, 'tr', {numeric: true})).forEach(c => {
-      $('filter-class').appendChild(option(c, c + (c.includes('MSM') ? ' · MESEM' : '')));
-    });
+    $('filter-class').appendChild(option('ALL', 'Tüm sınıf düzeyleri'));
+    view.grades.forEach(grade => $('filter-class').appendChild(option(grade, `${grade}. sınıf`)));
     $('filter-teacher').appendChild(option('ALL', 'Tüm öğretmenler'));
     [...data.teachers].sort((a, b) => a.name.localeCompare(b.name, 'tr')).forEach(t => {
       $('filter-teacher').appendChild(option(t.id, t.name));
@@ -149,7 +189,7 @@ if (typeof module !== 'undefined') module.exports = DerslikCore;
 
   function readFilters() {
     return {day: $('filter-day').value, period: $('filter-period').value,
-      className: $('filter-class').value, teacher: $('filter-teacher').value};
+      grade: $('filter-class').value, teacher: $('filter-teacher').value};
   }
 
   function renderCard(lesson) {
@@ -162,6 +202,7 @@ if (typeof module !== 'undefined') module.exports = DerslikCore;
     return `<article class="lesson-card" data-lesson-id="${esc(lesson.id)}">
       <div class="card-top"><span class="class-badge">${esc(lesson.c)}</span><span class="card-day">${esc(lesson.d)} · ${lesson.p}. ders</span><span class="card-time">${esc(core.timeRange(data, lesson))}</span></div>
       <div class="card-body"><div><p class="eyebrow">DERS KODU</p><h2>${esc(lesson.l)}</h2></div><div class="room ${lesson.r ? '' : 'room-unknown'}">${lesson.r ? `Derslik: ${esc(lesson.r)}` : 'Derslik PDF’de belirtilmemiş'}</div></div>
+      ${lesson.culture_classes.length ? `<p class="branch-note">Ortak kültür dersi · ${esc(lesson.culture_classes.join(' / '))}</p>` : lesson.group_label ? `<p class="branch-note">${esc(lesson.group_label)}</p>` : ''}
       <div class="teachers"><p class="teacher-label">${shared ? 'Birlikte derse giren öğretmenler' : 'Ders öğretmeni'}${shared ? '<span class="shared-badge">Ortak ders</span>' : ''}</p><ul>${teacherRows}</ul></div>
     </article>`;
   }
@@ -171,18 +212,18 @@ if (typeof module !== 'undefined') module.exports = DerslikCore;
     const list = core.filterLessons(data, filters);
     const day = filters.day === 'ALL' ? 'Tüm günler' : filters.day;
     const period = filters.period === 'ALL' ? 'Tüm saatler' : `${filters.period}. ders`;
-    const className = filters.className === 'ALL' ? 'Tüm sınıflar' : filters.className;
+    const className = filters.grade === 'ALL' ? 'Tüm sınıf düzeyleri' : `${filters.grade}. sınıf`;
     const teacher = filters.teacher === 'ALL' ? null : teachers.get(filters.teacher);
     $('filter-summary').textContent = `${day} · ${period} · ${className}${teacher ? ' · ' + teacher.name : ''}`;
-    const distinctTeachers = new Set(list.flatMap(item => item.teacher_ids));
-    $('result-count').textContent = `${list.length} ders · ${distinctTeachers.size} öğretmen`;
+    const distinctLessons = new Set(list.map(item => item.source_lesson_id));
+    $('result-count').textContent = `${list.length} sınıf kaydı · ${distinctLessons.size} ders`;
     $('results-container').innerHTML = list.map(renderCard).join('');
     $('empty-state').hidden = list.length > 0;
     $('empty-description').textContent = teacher && teacher.total_hours === 0
       ? `${teacher.name} için kaynak PDF’deki öğretmen satırı boş. Ders ataması eklenmedi.`
-      : 'Seçilen gün, saat, sınıf ve öğretmen için kaynak PDF’de ders kaydı bulunmuyor.';
+      : 'Seçilen gün, saat, sınıf düzeyi ve öğretmen için ders kaydı bulunmuyor.';
     $('teacher-info').hidden = !teacher;
-    if (teacher) $('teacher-info').textContent = `${teacher.name}: PDF’de haftalık ${teacher.total_hours} ders saati. Ortak derslerdeki diğer öğretmenler de kartlarda gösterilir.`;
+    if (teacher) $('teacher-info').textContent = `${teacher.name}: haftalık ${teacher.total_hours} ders saati. Ortak kültür derslerinin sınıf kartları aynı ders saatini paylaşır.`;
   }
 
   function selectCurrent() {

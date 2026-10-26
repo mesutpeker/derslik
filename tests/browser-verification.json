@@ -2,56 +2,48 @@
   "passed": true,
   "cases": [
     {
-      "case": "shared_teachers",
+      "case": "only_four_grade_options",
       "passed": true
     },
     {
-      "case": "mesem",
+      "case": "wednesday_six_grade10",
       "passed": true
     },
     {
-      "case": "history_teacher",
+      "case": "same_teacher_two_classes_one_lesson",
       "passed": true
     },
     {
-      "case": "motor_teacher",
+      "case": "separate_vocational_branches",
       "passed": true
     },
     {
-      "case": "unspecified_room",
+      "case": "joint_teachers_preserved",
       "passed": true
     },
     {
-      "case": "corrected_room",
+      "case": "mesem_in_grade12",
       "passed": true
     },
     {
-      "case": "empty_teacher_row",
+      "case": "full_week_source_count_preserved",
       "passed": true
     },
     {
-      "case": "after_school_and_filter_preserved",
+      "case": "grade_9",
       "passed": true
     },
     {
-      "case": "390px_mobile_visual_review",
-      "passed": true,
-      "method": "390px iframe; native accessibility tree and screenshot; both teachers retained"
-    },
-    {
-      "case": "full_week_all_cards_and_teachers",
+      "case": "grade_10",
       "passed": true
     },
     {
-      "case": "no_external_runtime_assets",
+      "case": "grade_11",
       "passed": true
     },
     {
-      "case": "individual_teacher_week",
+      "case": "grade_12",
       "passed": true
     }
-  ],
-  "limitations": [
-    "file:// açılışı tarayıcı güvenlik politikası nedeniyle çalıştırılamadı; HTTP üzerinden gerçek tarayıcı ve dış kaynak denetimleri yapıldı."
   ]
 }

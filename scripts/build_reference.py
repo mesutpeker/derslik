@@ -24,7 +24,7 @@ def build():
               "## Sınıf/grup kodları", "", "| Kod | Ayrı ders saati | Öğretmen ataması |", "| --- | ---: | ---: |"]
     for cls in data["classes"]:
         lines.append(f"| {cls} | {sum(l['c'] == cls for l in data['lessons'])} | {sum(a['c'] == cls for a in data['assignments'])} |")
-    lines += ["", "Birleşik grup kodlarından ana şube eşlemesi türetilmez. PDF’de ayrı sınıf kodu bulunmayan 10-D, 11-G gibi seçenekler eklenmez.", "",
+    lines += ["", "Bu tablo ham PDF kodlarını gösterir. Arayüzde yalnızca 9, 10, 11 ve 12. sınıf düzeyi seçilir; eski sürümdeki şube ilişkilerine göre ortak kültür dersleri ayrı şube kartlarında aynı öğretmenle gösterilir. Ham kaynak kayıtları değişmez.", "",
               "## Ders kodları", "", "PDF uzun ders adlarını içermediği için bu dizin kodları açımlamaz. Kodlar yazıldıkları şekilde korunur; örneğin `SBKMR1` ve `GKOKA1` sonlarına tahmini karakter eklenmez.", "",
               "| Ders kodu | Ayrı ders saati | Öğretmen ataması |", "| --- | ---: | ---: |"]
     for code in data["course_catalog"]:

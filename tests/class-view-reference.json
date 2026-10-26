@@ -1,0 +1,11 @@
+{
+  "description": "Former branch relationships restored at the user's request; PDF records remain canonical.",
+  "grade_options": ["9", "10", "11", "12"],
+  "culture_partners": {"10-A":"10-D","10-B":"10-G","11-C":"11-D","11-B":"11-G","12-A":"12-E","12-B":"12-G","12-C":"12-D"},
+  "culture_codes": {
+    "10":["BED10","BİY10","COĞ10","DİN10","FEL10","FİZ10","KİM10","MAT10","REHB","SAK","SDE","STDB","TAR10","TED10","İNG10"],
+    "11":["BED11","DİN11","FELS11","REHB","SAĞB 9","SOTT11","STDB","TAR11","TED11","İKM11","İNG11"],
+    "12":["DİN12","SBYY12","SKAM","TED12","İNG12","İNKT12"]
+  },
+  "group_branches": {"10A-D":"10-D","10B-G":"10-G","11B-G":"11-G","11C-D":"11-D","12A-E":"12-E","12B-G":"12-G","12C-D":"12-D","9C-İ":"9-C","10C-İ":"10-C","11C-İ":"11-C","12C-İ":"12-C"}
+}

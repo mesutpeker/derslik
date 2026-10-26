@@ -2,13 +2,15 @@
   "passed": true,
   "source_sha256": "4c604f30004057bec573ff279828e38ded835ccf49009f13c9f12cc00883db99",
   "checks": {
-    "exhaustive_filter_combinations": 221628,
+    "exhaustive_filter_combinations": 24090,
     "lesson_teacher_sets": 1264,
     "data_regressions": 9,
+    "branch_cards_and_source_preservation": 1403,
+    "shared_culture_pairs": 139,
     "clock_minutes": 10080,
     "clock_second_boundaries_and_timezone": 9,
     "offline_build_and_embedded_integrity": 8,
-    "actual_embedded_ui_combinations": 7788,
+    "actual_embedded_ui_combinations": 5082,
     "ui_regressions": 13
   }
 }

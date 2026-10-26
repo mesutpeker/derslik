@@ -13,16 +13,16 @@
     <button id="now-button" class="primary-button" type="button">Şu Anı Seç</button>
   </div></header>
   <main>
-    <div class="intro"><div><h2>Haftalık ders programı</h2><p>Gün, ders saati, sınıf ve öğretmene göre planlanan dersleri bulun. Ortak derslerde tüm öğretmenler birlikte gösterilir.</p></div><span class="source-pill">PDF’den doğrulandı</span></div>
+    <div class="intro"><div><h2>Haftalık ders programı</h2><p>Gün, ders saati ve sınıf düzeyini seçin. Şubelerin derslerini ve öğretmenlerini ayrı kartlarda görün.</p></div><span class="source-pill">PDF’den doğrulandı</span></div>
     <section class="filter-panel" aria-labelledby="filter-heading">
       <div class="filter-heading"><h2 id="filter-heading">Programı filtrele</h2><button id="reset-button" type="button" class="text-button">Filtreleri temizle</button></div>
       <div class="filters">
         <div class="filter-field"><label for="filter-day">Gün</label><select id="filter-day"></select></div>
         <div class="filter-field"><label for="filter-period">Ders saati</label><select id="filter-period"></select></div>
-        <div class="filter-field"><label for="filter-class">Sınıf / grup</label><select id="filter-class"></select></div>
+        <div class="filter-field"><label for="filter-class">Sınıf düzeyi</label><select id="filter-class"></select></div>
         <div class="filter-field"><label for="filter-teacher">Öğretmen</label><select id="filter-teacher"></select></div>
       </div>
-      <p class="filter-note">Sınıf ve birleşik grup kodları kaynak PDF’deki haliyle ayrı listelenir. Ders kodları belgede yazıldığı şekilde korunur.</p>
+      <p class="filter-note">Ortak kültür derslerinde şubeler ayrı gösterilir; ders, saat ve öğretmen aynıdır. Atölye dersleri ilgili şubenin kartında yer alır.</p>
     </section>
     <p id="current-status" class="current-status" role="status" aria-live="polite"></p>
     <p id="teacher-info" class="teacher-info" hidden></p>

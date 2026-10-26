@@ -135,7 +135,7 @@ MEHMET KORKMAZ’ın kaynak PDF’deki satırı boştur. İki MAT10 hücresinde 
 | 9MSMA | 10 | 10 |
 | 9MSMB | 10 | 10 |
 
-Birleşik grup kodlarından ana şube eşlemesi türetilmez. PDF’de ayrı sınıf kodu bulunmayan 10-D, 11-G gibi seçenekler eklenmez.
+Bu tablo ham PDF kodlarını gösterir. Arayüzde yalnızca 9, 10, 11 ve 12. sınıf düzeyi seçilir; eski sürümdeki şube ilişkilerine göre ortak kültür dersleri ayrı şube kartlarında aynı öğretmenle gösterilir. Ham kaynak kayıtları değişmez.
 
 ## Ders kodları
 

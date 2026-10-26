@@ -1,9 +1,10 @@
-/* UI uses only canonical PDF lessons; it never creates inferred class aliases. */
+/* Grade filtering with separate branch cards; source PDF assignments stay intact. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
   const data = JSON.parse($('school-data').textContent);
   const core = DerslikCore;
+  const view = core.classView(data);
   const esc = core.escapeHtml;
   const teachers = new Map(data.teachers.map(t => [t.id, t]));
   const assignments = new Map(data.assignments.map(a => [a.id, a]));
@@ -16,14 +17,12 @@
   }
 
   function populate() {
-    $('school-stats').textContent = `${data.teachers.length} öğretmen · ${data.classes.length} sınıf/grup · ${data.lessons.length.toLocaleString('tr-TR')} ders`;
+    $('school-stats').textContent = `${data.teachers.length} öğretmen · ${view.classes.length} sınıf · ${data.lessons.length.toLocaleString('tr-TR')} ders`;
     $('source-info').textContent = `${data.source.filename} · ${data.source.pages} sayfa`;
     $('filter-day').appendChild(option('ALL', 'Tüm günler'));
     data.days.forEach(day => $('filter-day').appendChild(option(day, day)));
-    $('filter-class').appendChild(option('ALL', `Tüm sınıflar (${data.classes.length})`));
-    [...data.classes].sort((a, b) => a.localeCompare(b, 'tr', {numeric: true})).forEach(c => {
-      $('filter-class').appendChild(option(c, c + (c.includes('MSM') ? ' · MESEM' : '')));
-    });
+    $('filter-class').appendChild(option('ALL', 'Tüm sınıf düzeyleri'));
+    view.grades.forEach(grade => $('filter-class').appendChild(option(grade, `${grade}. sınıf`)));
     $('filter-teacher').appendChild(option('ALL', 'Tüm öğretmenler'));
     [...data.teachers].sort((a, b) => a.name.localeCompare(b.name, 'tr')).forEach(t => {
       $('filter-teacher').appendChild(option(t.id, t.name));
@@ -41,7 +40,7 @@
 
   function readFilters() {
     return {day: $('filter-day').value, period: $('filter-period').value,
-      className: $('filter-class').value, teacher: $('filter-teacher').value};
+      grade: $('filter-class').value, teacher: $('filter-teacher').value};
   }
 
   function renderCard(lesson) {
@@ -54,6 +53,7 @@
     return `<article class="lesson-card" data-lesson-id="${esc(lesson.id)}">
       <div class="card-top"><span class="class-badge">${esc(lesson.c)}</span><span class="card-day">${esc(lesson.d)} · ${lesson.p}. ders</span><span class="card-time">${esc(core.timeRange(data, lesson))}</span></div>
       <div class="card-body"><div><p class="eyebrow">DERS KODU</p><h2>${esc(lesson.l)}</h2></div><div class="room ${lesson.r ? '' : 'room-unknown'}">${lesson.r ? `Derslik: ${esc(lesson.r)}` : 'Derslik PDF’de belirtilmemiş'}</div></div>
+      ${lesson.culture_classes.length ? `<p class="branch-note">Ortak kültür dersi · ${esc(lesson.culture_classes.join(' / '))}</p>` : lesson.group_label ? `<p class="branch-note">${esc(lesson.group_label)}</p>` : ''}
       <div class="teachers"><p class="teacher-label">${shared ? 'Birlikte derse giren öğretmenler' : 'Ders öğretmeni'}${shared ? '<span class="shared-badge">Ortak ders</span>' : ''}</p><ul>${teacherRows}</ul></div>
     </article>`;
   }
@@ -63,18 +63,18 @@
     const list = core.filterLessons(data, filters);
     const day = filters.day === 'ALL' ? 'Tüm günler' : filters.day;
     const period = filters.period === 'ALL' ? 'Tüm saatler' : `${filters.period}. ders`;
-    const className = filters.className === 'ALL' ? 'Tüm sınıflar' : filters.className;
+    const className = filters.grade === 'ALL' ? 'Tüm sınıf düzeyleri' : `${filters.grade}. sınıf`;
     const teacher = filters.teacher === 'ALL' ? null : teachers.get(filters.teacher);
     $('filter-summary').textContent = `${day} · ${period} · ${className}${teacher ? ' · ' + teacher.name : ''}`;
-    const distinctTeachers = new Set(list.flatMap(item => item.teacher_ids));
-    $('result-count').textContent = `${list.length} ders · ${distinctTeachers.size} öğretmen`;
+    const distinctLessons = new Set(list.map(item => item.source_lesson_id));
+    $('result-count').textContent = `${list.length} sınıf kaydı · ${distinctLessons.size} ders`;
     $('results-container').innerHTML = list.map(renderCard).join('');
     $('empty-state').hidden = list.length > 0;
     $('empty-description').textContent = teacher && teacher.total_hours === 0
       ? `${teacher.name} için kaynak PDF’deki öğretmen satırı boş. Ders ataması eklenmedi.`
-      : 'Seçilen gün, saat, sınıf ve öğretmen için kaynak PDF’de ders kaydı bulunmuyor.';
+      : 'Seçilen gün, saat, sınıf düzeyi ve öğretmen için ders kaydı bulunmuyor.';
     $('teacher-info').hidden = !teacher;
-    if (teacher) $('teacher-info').textContent = `${teacher.name}: PDF’de haftalık ${teacher.total_hours} ders saati. Ortak derslerdeki diğer öğretmenler de kartlarda gösterilir.`;
+    if (teacher) $('teacher-info').textContent = `${teacher.name}: haftalık ${teacher.total_hours} ders saati. Ortak kültür derslerinin sınıf kartları aynı ders saatini paylaşır.`;
   }
 
   function selectCurrent() {

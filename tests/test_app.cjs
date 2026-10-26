@@ -10,26 +10,40 @@ const core = require('../app-core.js');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const teacherIds = new Map(data.teachers.map(t => [t.name, t.id]));
 const teacherNames = new Map(data.teachers.map(t => [t.id, t.name]));
-const tuple = l => JSON.stringify([l.d, l.p, l.c, l.l, l.r]);
+const policy = JSON.parse(fs.readFileSync(path.join(__dirname, 'class-view-reference.json'), 'utf8'));
+const view = core.classView(data);
+const byViewId = new Map(view.lessons.map(l => [l.id, l]));
+const tuple = l => JSON.stringify([l.d, l.p, l.c, l.l, l.r, l.source_class]);
+const sourceTuple = l => JSON.stringify([l.d, l.p, l.c, l.l, l.r]);
 const goldTuple = a => JSON.stringify([a.day, a.period, a.className, a.course, a.room]);
-const filterKey = f => JSON.stringify([f.day, f.period, f.className, f.teacher]);
+const goldViewTuple = a => JSON.stringify([a.day, a.period, a.className, a.course, a.room, a.sourceClass]);
+const filterKey = f => JSON.stringify([f.day, f.period, f.grade, f.teacher]);
 const expected = new Map();
 const report = {passed: false, source_sha256: data.source.sha256, checks: {}};
 assert.equal(data.source.sha256, gold.source_sha256);
 
-// Build query expectations from each independent PDF cell's 16 possible scopes.
-for (const a of gold.cells) {
+// Project independent PDF cells with the separately recorded branch contract.
+const goldView = gold.cells.flatMap(a => {
+  const grade = String(parseInt(a.className, 10));
+  const partner = policy.culture_partners[a.className];
+  const isCulture = partner && policy.culture_codes[grade].includes(a.course);
+  const classes = policy.group_branches[a.className] ? [policy.group_branches[a.className]]
+    : isCulture ? [a.className, partner] : [a.className];
+  return classes.map(className => ({...a, className, grade, sourceClass: a.className}));
+});
+// Build expectations for every grade/day/hour/teacher query from PDF cells.
+for (const a of goldView) {
   for (const day of ['ALL', a.day]) for (const period of ['ALL', String(a.period)])
-    for (const className of ['ALL', a.className]) for (const teacher of ['ALL', teacherIds.get(a.teacher)]) {
-      const key = filterKey({day, period, className, teacher});
+    for (const grade of ['ALL', a.grade]) for (const teacher of ['ALL', teacherIds.get(a.teacher)]) {
+      const key = filterKey({day, period, grade, teacher});
       if (!expected.has(key)) expected.set(key, new Set());
-      expected.get(key).add(goldTuple(a));
+      expected.get(key).add(goldViewTuple(a));
     }
 }
 let filterChecks = 0;
 for (const day of ['ALL', ...data.days]) for (const period of ['ALL', ...Array.from({length: 10}, (_, i) => String(i + 1))])
-  for (const className of ['ALL', ...data.classes]) for (const teacher of ['ALL', ...data.teachers.map(t => t.id)]) {
-    const filters = {day, period, className, teacher};
+  for (const grade of ['ALL', ...policy.grade_options]) for (const teacher of ['ALL', ...data.teachers.map(t => t.id)]) {
+    const filters = {day, period, grade, teacher};
     const actual = new Set(core.filterLessons(data, filters).map(tuple));
     const reference = expected.get(filterKey(filters)) || new Set();
     assert.deepEqual(actual, reference, `Filter differs: ${JSON.stringify(filters)}`);
@@ -44,7 +58,7 @@ for (const a of gold.cells) {
   goldGroups.get(goldTuple(a)).add(a.teacher);
 }
 for (const lesson of data.lessons) {
-  assert.deepEqual(new Set(lesson.teacher_ids.map(id => teacherNames.get(id))), goldGroups.get(tuple(lesson)));
+  assert.deepEqual(new Set(lesson.teacher_ids.map(id => teacherNames.get(id))), goldGroups.get(sourceTuple(lesson)));
 }
 assert.equal(data.lessons.length, 1264);
 assert.equal(data.assignments.length, 1347);
@@ -57,6 +71,32 @@ assert.equal(data.assignments.filter(a => !a.r).length, 2);
 assert.equal(data.teachers.find(t => t.name === 'MEHMET KORKMAZ').total_hours, 0);
 report.checks.lesson_teacher_sets = data.lessons.length;
 report.checks.data_regressions = 9;
+
+// Every branch card refers back to one untouched, complete source lesson.
+const rawSnapshot = JSON.stringify(data);
+assert.deepEqual(view.grades, policy.grade_options);
+assert.equal(view.classes.length, 41);
+assert.equal(view.lessons.length, 1403);
+assert.equal(new Set(view.lessons.map(l => l.source_lesson_id)).size, data.lessons.length);
+assert.equal(new Set(view.lessons.map(l => l.id)).size, view.lessons.length);
+assert(view.classes.every(c => !Object.hasOwn(policy.group_branches, c)));
+for (const card of view.lessons) {
+  const source = data.lessons.find(l => l.id === card.source_lesson_id);
+  assert.equal(card.source_class, source.c);
+  for (const field of ['d', 'p', 'l', 'r', 'teacher_ids', 'assignment_ids']) assert.deepEqual(card[field], source[field]);
+}
+assert.equal(JSON.stringify(data), rawSnapshot);
+const targetCase = core.filterLessons(data, {day: 'Çarşamba', period: '6', grade: '10', teacher: 'ALL'});
+for (const branch of ['10-A', '10-D']) {
+  const lesson = targetCase.find(l => l.c === branch);
+  assert.equal(lesson.l, 'KİM10');
+  assert.deepEqual(lesson.teacher_ids.map(id => teacherNames.get(id)), ['SALİH KILIÇ']);
+}
+const workshopCase = core.filterLessons(data, {day: 'Salı', period: '6', grade: '10', teacher: 'ALL'});
+assert.equal(workshopCase.find(l => l.c === '10-A').l, 'İMLY10');
+assert.equal(workshopCase.find(l => l.c === '10-D').l, 'OEA10');
+report.checks.branch_cards_and_source_preservation = view.lessons.length;
+report.checks.shared_culture_pairs = view.lessons.filter(l => l.culture_classes.length > 0).length / 2;
 
 // One entire week, minute by minute, against PDF bell times.
 let minuteChecks = 0;
@@ -114,25 +154,26 @@ nodes['school-data'].textContent = scripts[0][2];
 const document = {getElementById: id => {assert(nodes[id], `Missing DOM node: ${id}`); return nodes[id];}, createElement: () => new Node()};
 const context = vm.createContext({document, Intl, Date});
 vm.runInContext(scripts[1][2] + '\n' + scripts[2][2], context);
-assert.equal(nodes['filter-class'].children.length, 46);
+assert.equal(nodes['filter-class'].children.length, 5);
+assert.deepEqual(nodes['filter-class'].children.map(c => c.value), ['ALL', '9', '10', '11', '12']);
 assert.equal(nodes['filter-teacher'].children.length, 73);
 const set = (id, value) => {nodes[id].value = value; nodes[id].listeners.change();};
 const renderedIds = () => [...nodes['results-container'].innerHTML.matchAll(/data-lesson-id="([^"]+)"/g)].map(m => m[1]);
 let uiChecks = 0;
 function verifyUI() {
-  const f = {day: nodes['filter-day'].value, period: nodes['filter-period'].value, className: nodes['filter-class'].value, teacher: nodes['filter-teacher'].value};
+  const f = {day: nodes['filter-day'].value, period: nodes['filter-period'].value, grade: nodes['filter-class'].value, teacher: nodes['filter-teacher'].value};
   const reference = expected.get(filterKey(f)) || new Set();
-  const actual = renderedIds().map(id => tuple(data.lessons.find(l => l.id === id)));
+  const actual = renderedIds().map(id => tuple(byViewId.get(id)));
   assert.deepEqual(new Set(actual), reference);
   assert.equal(nodes['empty-state'].hidden, actual.length > 0);
-  assert(nodes['result-count'].textContent.startsWith(`${actual.length} ders`));
+  assert(nodes['result-count'].textContent.startsWith(`${actual.length} sınıf kaydı`));
   uiChecks++;
 }
 for (const day of ['ALL', ...data.days]) {
   set('filter-day', day);
   for (const period of ['ALL', ...Array.from({length: 10}, (_, i) => String(i + 1))]) {
     set('filter-period', period);
-    for (const c of ['ALL', ...data.classes]) {set('filter-class', c); verifyUI();}
+    for (const grade of ['ALL', ...policy.grade_options]) {set('filter-class', grade); verifyUI();}
   }
 }
 set('filter-class', 'ALL');
@@ -145,24 +186,35 @@ for (const teacher of data.teachers) {
 }
 report.checks.actual_embedded_ui_combinations = uiChecks;
 
-set('filter-teacher', 'ALL'); set('filter-day', 'Perşembe'); set('filter-period', '4'); set('filter-class', '11-B');
+set('filter-teacher', 'ALL'); set('filter-day', 'Perşembe'); set('filter-period', '4'); set('filter-class', '11');
 assert(nodes['results-container'].innerHTML.includes('NEBİ SARI'));
 assert(nodes['results-container'].innerHTML.includes('YASİN ŞAVLI'));
 assert(nodes['results-container'].innerHTML.includes('Ortak ders'));
-set('filter-class', '12MSMC'); set('filter-day', 'Salı'); set('filter-period', '1');
+set('filter-class', '12'); set('filter-day', 'Salı'); set('filter-period', '1');
 assert(nodes['results-container'].innerHTML.includes('NESİBE GÜZİDE ÜNAL'));
-set('filter-class', '9-C');
+set('filter-class', '9');
 assert(nodes['results-container'].innerHTML.includes('BURAK KAÇAR'));
 assert(!nodes['results-container'].innerHTML.includes('AYŞE GİRGİN'));
-set('filter-class', '10-E'); set('filter-period', '5');
+set('filter-class', '10'); set('filter-period', '5');
 assert(nodes['results-container'].innerHTML.includes('Derslik PDF’de belirtilmemiş'));
 nodes['reset-button'].listeners.click(); verifyUI();
-assert.equal(renderedIds().length, 1264);
+assert.equal(renderedIds().length, 1403);
+assert(nodes['result-count'].textContent.includes('1264 ders'));
 set('filter-teacher', teacherIds.get('MEHMET KORKMAZ')); verifyUI();
 assert(nodes['empty-description'].textContent.includes('satırı boş'));
 nodes['now-button'].listeners.click();
 assert.equal(nodes['filter-teacher'].value, teacherIds.get('MEHMET KORKMAZ'));
 report.checks.ui_regressions = 13;
+set('filter-teacher', 'ALL'); set('filter-day', 'Çarşamba'); set('filter-period', '6'); set('filter-class', '10');
+verifyUI();
+const targetIds = renderedIds().map(id => byViewId.get(id));
+assert.equal(targetIds.length, 8);
+assert.equal(nodes['result-count'].textContent, '8 sınıf kaydı · 6 ders');
+const targetCards = nodes['results-container'].innerHTML.split('<article').slice(1);
+for (const branch of ['10-A', '10-D']) {
+  const card = targetCards.find(c => c.includes(`class-badge">${branch}</span>`));
+  assert(card.includes('KİM10') && card.includes('SALİH KILIÇ') && card.includes('Ortak kültür dersi'));
+}
 assert.equal(core.escapeHtml('<script>"&\''), '&lt;script&gt;&quot;&amp;&#39;');
 report.passed = true;
 fs.writeFileSync(path.join(__dirname, 'app-verification.json'), JSON.stringify(report, null, 2) + '\n');
