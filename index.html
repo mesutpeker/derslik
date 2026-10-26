@@ -2,56 +2,80 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Karaman MTAL — Ders ve Öğretmen Takip</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karaman MTAL — Ders ve Öğretmen Takip Sistemi</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
     select {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-      background-position: right 0.5rem center;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23334155' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.75rem center;
       background-repeat: no-repeat;
-      background-size: 1.25em 1.25em;
-      padding-right: 2rem;
+      background-size: 1.35em 1.35em;
+      padding-right: 2.5rem;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-100/90 text-slate-800 antialiased min-h-screen flex flex-col pb-10">
 
-  <!-- KOMPAKT BAŞLIK -->
-  <header class="bg-slate-900 text-white px-3.5 py-2.5 shadow-sm sticky top-0 z-30">
-    <div class="max-w-xl mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <div class="w-7 h-7 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-xs text-white shadow-xs">
+  <!-- ========================================== -->
+  <!-- 1. BÖLÜM: ÜST KURUMSAL BAŞLIK              -->
+  <!-- ========================================== -->
+  <header class="bg-slate-900 text-white shadow-md border-b-2 border-slate-800 sticky top-0 z-30">
+    <div class="max-w-3xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center font-extrabold text-white text-base shadow-md shadow-sky-500/30 flex-shrink-0">
           KM
         </div>
         <div>
-          <h1 class="text-xs font-bold leading-tight tracking-tight text-white">Karaman MTAL Ders Takip</h1>
-          <p class="text-[10px] text-slate-400 leading-none">12/10/2026 • 72 Öğretmen • ${classes_list.__len__()} Sınıf</p>
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white leading-tight">
+            Karaman MTAL Ders Takip
+          </h1>
+          <p class="text-xs text-sky-300/90 font-medium">12/10/2026 • 72 Öğretmen • ${classes_list.__len__()} Sınıf</p>
         </div>
       </div>
-      <button onclick="autoSelectCurrent()" class="px-2.5 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-[11px] font-semibold text-white transition flex items-center gap-1 shadow-xs cursor-pointer">
-        <svg class="w-3 h-3 text-sky-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-        <span>Şu An</span>
+      <button onclick="autoSelectCurrent()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-xs sm:text-sm font-bold text-white transition flex items-center gap-1.5 shadow-sm shadow-sky-600/40 cursor-pointer">
+        <svg class="w-4 h-4 text-sky-200 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span>Şu Anki Saati Seç</span>
       </button>
     </div>
   </header>
 
-  <!-- SADECE 3 AÇILIR MENÜ (GÜN, DERS SAATİ, SINIF) -->
-  <div class="bg-white border-b border-slate-200 shadow-xs px-3.5 py-3 sticky top-[49px] z-20">
-    <div class="max-w-xl mx-auto space-y-2">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+  <main class="max-w-3xl mx-auto w-full px-4 pt-5 flex-1 space-y-4">
+
+    <!-- ========================================== -->
+    <!-- 2. BÖLÜM: FİLTRE PANELİ (BELİRGİN KART)   -->
+    <!-- ========================================== -->
+    <section class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-4 sm:p-5">
+      <div class="flex items-center justify-between pb-3 mb-3.5 border-b border-slate-100">
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span>
+          <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-700">Ders Filtreleme Menüsü</h2>
+        </div>
+        <span class="text-xs font-semibold text-slate-400">3 Seçim Alanı</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
         
-        <!-- 1. GÜN AÇILIR MENÜSÜ -->
-        <div>
-          <label for="filter-day" class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-0.5">Gün</label>
-          <select id="filter-day" onchange="applyFilters()" class="w-full text-xs font-bold bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-slate-800 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:bg-white shadow-xs">
+        <!-- GÜN SEÇİMİ -->
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-200 transition">
+          <label for="filter-day" class="flex items-center gap-1.5 text-xs font-bold text-slate-700 mb-1.5">
+            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <span>1. Gün</span>
+          </label>
+          <select id="filter-day" onchange="applyFilters()" class="w-full text-sm sm:text-base font-extrabold bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-900 focus:outline-none shadow-2xs">
             <option value="Pazartesi">Pazartesi</option>
             <option value="Salı">Salı</option>
             <option value="Çarşamba">Çarşamba</option>
@@ -61,10 +85,13 @@
           </select>
         </div>
 
-        <!-- 2. DERS SAATİ AÇILIR MENÜSÜ -->
-        <div>
-          <label for="filter-period" class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-0.5">Ders Saati</label>
-          <select id="filter-period" onchange="applyFilters()" class="w-full text-xs font-bold bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-slate-800 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:bg-white shadow-xs">
+        <!-- DERS SAATİ SEÇİMİ -->
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-200 transition">
+          <label for="filter-period" class="flex items-center gap-1.5 text-xs font-bold text-slate-700 mb-1.5">
+            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>2. Ders Saati</span>
+          </label>
+          <select id="filter-period" onchange="applyFilters()" class="w-full text-sm sm:text-base font-extrabold bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-900 focus:outline-none shadow-2xs">
             <option value="1">1. Ders (08:20 - 09:00)</option>
             <option value="2">2. Ders (09:10 - 09:50)</option>
             <option value="3">3. Ders (10:00 - 10:40)</option>
@@ -79,66 +106,80 @@
           </select>
         </div>
 
-        <!-- 3. SINIF AÇILIR MENÜSÜ -->
-        <div>
-          <label for="filter-class" class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-0.5">Sınıf</label>
-          <select id="filter-class" onchange="applyFilters()" class="w-full text-xs font-bold bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-slate-800 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:bg-white shadow-xs">
+        <!-- SINIF SEÇİMİ -->
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-200 transition">
+          <label for="filter-class" class="flex items-center gap-1.5 text-xs font-bold text-slate-700 mb-1.5">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+            <span>3. Sınıf Seçimi</span>
+          </label>
+          <select id="filter-class" onchange="applyFilters()" class="w-full text-sm sm:text-base font-extrabold bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-900 focus:outline-none shadow-2xs">
             <option value="ALL">Tüm Sınıflar (${classes_list.__len__()} Sınıf)</option>
             <!-- Generated via JS -->
           </select>
         </div>
 
       </div>
+    </section>
 
-      <!-- BİLGİ & SONUÇ SAYACI ŞERİDİ -->
-      <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-100 font-medium">
-        <span id="filter-summary">Pazartesi • 1. Ders</span>
-        <span id="result-count" class="font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-100">0 Ders</span>
+    <!-- ========================================== -->
+    <!-- 3. BÖLÜM: BİLGİ & SONUÇ ŞERİDİ            -->
+    <!-- ========================================== -->
+    <div class="bg-white rounded-xl border-2 border-slate-200 px-4 py-3 flex items-center justify-between shadow-2xs">
+      <div class="flex items-center space-x-2">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="filter-summary" class="text-xs sm:text-sm font-extrabold text-slate-800">
+          Pazartesi • 1. Ders • Tüm Sınıflar
+        </span>
       </div>
+      <span id="result-count" class="font-mono font-bold text-xs sm:text-sm text-sky-700 bg-sky-100 px-3 py-1 rounded-lg border border-sky-200">
+        0 Ders
+      </span>
     </div>
-  </div>
 
-  <!-- SONUÇ LİSTESİ (MOBİL İÇİN KOMPAKT DÜZEN) -->
-  <main class="max-w-xl mx-auto w-full px-3 py-3 flex-1">
-    
-    <!-- BİRLEŞİK SINIF KÜLTÜR DERSİ UYARI KARTI -->
-    <div id="combined-class-alert" class="hidden mb-3 bg-amber-50 border border-amber-300 rounded-xl p-3.5 shadow-xs">
-      <div class="flex items-start gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+    <!-- ========================================== -->
+    <!-- 4. BÖLÜM: BİRLEŞİK SINIF UYARI KARTI       -->
+    <!-- ========================================== -->
+    <div id="combined-class-alert" class="hidden bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 shadow-sm">
+      <div class="flex items-start gap-3.5">
+        <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
         </div>
         <div class="flex-1">
-          <h3 class="text-xs font-bold text-amber-950 uppercase tracking-tight" id="combined-alert-title">
+          <h3 class="text-sm sm:text-base font-extrabold text-amber-950 uppercase tracking-tight" id="combined-alert-title">
             Bu Saatte Ders Yok
           </h3>
-          <p class="text-xs text-amber-900 mt-1 leading-snug" id="combined-alert-desc">
+          <p class="text-xs sm:text-sm text-amber-900 mt-1.5 leading-relaxed font-medium" id="combined-alert-desc">
             <!-- Alert description -->
           </p>
-          <div id="combined-alert-buttons" class="mt-2.5 flex flex-wrap gap-1.5">
-            <!-- Quick links rendered via JS -->
+          <div id="combined-alert-buttons" class="mt-3.5 flex flex-wrap gap-2">
+            <!-- Buttons rendered via JS -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- DERS KARTLARI LİSTESİ -->
-    <div id="results-container" class="space-y-2">
+    <!-- ========================================== -->
+    <!-- 5. BÖLÜM: DERS VE ÖĞRETMEN KARTLARI LİSTESİ-->
+    <!-- ========================================== -->
+    <div id="results-container" class="space-y-3.5">
       <!-- Populated via JS -->
     </div>
 
-    <!-- GENEL BOŞ DURUM -->
-    <div id="empty-state" class="hidden text-center py-12">
-      <div class="w-12 h-12 mx-auto rounded-full bg-slate-200 flex items-center justify-center text-slate-400 mb-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <!-- BOŞ DURUM MESAJI -->
+    <div id="empty-state" class="hidden bg-white rounded-2xl border-2 border-slate-200 p-10 text-center shadow-xs">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       </div>
-      <p class="text-xs font-bold text-slate-700">Ders Bulunamadı</p>
-      <p class="text-[11px] text-slate-400 mt-0.5">Seçilen gün ve saatte ders kaydı bulunmamaktadır.</p>
+      <h3 class="text-sm sm:text-base font-bold text-slate-800">Ders Kaydı Bulunamadı</h3>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">Seçilen gün ve saat kriterlerine uyan aktif bir ders bulunmamaktadır.</p>
     </div>
+
   </main>
 
-  <!-- KOMPAKT ALT BİLGİ -->
-  <footer class="bg-white border-t border-slate-200 py-2.5 px-3 text-center text-[10px] text-slate-400">
-    <p>Karaman Mesleki ve Teknik Anadolu Lisesi • <span class="text-slate-600 font-semibold">12/10/2026 Programı</span></p>
+  <!-- ALT BİLGİ -->
+  <footer class="max-w-3xl mx-auto w-full px-4 pt-6 text-center text-xs text-slate-500 border-t border-slate-200/80 mt-6">
+    <p class="font-bold text-slate-700">T.C. Karaman Valiliği — Karaman Mesleki ve Teknik Anadolu Lisesi</p>
+    <p class="text-[11px] text-slate-400 mt-0.5">Haftalık Ders ve Öğretmen Çarşaf Programı • 12/10/2026</p>
   </footer>
 
   <script>
@@ -217,7 +258,7 @@
       const periodText = selPeriod === 'ALL' ? 'Tüm Saatler' : selPeriod + '. Ders';
       const classText = selClass === 'ALL' ? 'Tüm Sınıflar' : selClass;
       document.getElementById('filter-summary').innerText = `${dayText} • ${periodText} • ${classText}`;
-      document.getElementById('result-count').innerText = `${filtered.length} Ders`;
+      document.getElementById('result-count').innerText = `${filtered.length} Ders Bulundu`;
 
       // Combined class warning logic
       checkCombinedClassAlert(selClass, selDay, selPeriod, filtered.length);
@@ -238,32 +279,31 @@
         return;
       }
 
-      // Check lessons of this combined class on selDay
       const dayLessons = DATA.slots.filter(item => item.c === selClass && (selDay === 'ALL' || item.d === selDay));
       const hasLessonsOnDay = dayLessons.length > 0;
       const baseClasses = DATA.combined_map[selClass].bases || [];
 
-      // Generate buttons HTML for base classes
+      // Generate prominent buttons HTML for base classes
       const buttonsHtml = baseClasses.map(bc => `
-        <button onclick="selectClass('${bc}')" class="px-2.5 py-1 bg-amber-200/90 hover:bg-amber-300 text-amber-950 text-xs font-bold rounded-lg border border-amber-400 transition flex items-center gap-1 cursor-pointer shadow-2xs">
+        <button onclick="selectClass('${bc}')" class="px-3.5 py-2 bg-amber-200 hover:bg-amber-300 active:bg-amber-400 text-amber-950 text-xs sm:text-sm font-extrabold rounded-xl border-2 border-amber-400 transition flex items-center gap-1.5 cursor-pointer shadow-xs">
           <span>👉</span>
           <span>${bc} Sınıfına Bak</span>
         </button>
       `).join('');
 
       if (!hasLessonsOnDay && selDay !== 'ALL') {
-        // Combined class has NO lessons on that day -> Show cultural lesson warning!
+        // Whole day is empty
         alertBox.classList.remove('hidden');
         alertTitle.innerText = "Bugün Kültür Dersi Yok — Sınıflara Ayrı Ayrı Bakınız";
-        alertDesc.innerHTML = `<strong>${selClass}</strong> birleşik sınıfında <strong>${selDay}</strong> günü atölye/meslek dersi bulunmamaktadır. Öğrenciler kendi şubelerinde kültür dersi aldığından sınıflara ayrı ayrı bakınız:`;
+        alertDesc.innerHTML = `<strong>${selClass}</strong> birleşik sınıfında <strong>${selDay}</strong> günü atölye veya meslek dersi bulunmamaktadır. Öğrenciler kendi şubelerinde kültür dersi aldığından sınıflara ayrı ayrı bakınız:`;
         alertButtons.innerHTML = buttonsHtml;
       } else if (resultsCount === 0 && hasLessonsOnDay && selPeriod !== 'ALL') {
-        // Has lessons on that day, but not at this period! Show requested alert + buttons!
+        // Specific hour is empty
         alertBox.classList.remove('hidden');
         alertTitle.innerText = "Bu Saatte Ders Yok";
         
         const activeHours = [...new Set(dayLessons.map(i => i.p))].sort((a,b)=>a-b);
-        alertDesc.innerHTML = `<strong>${selClass}</strong> sınıfının <strong>${selDay}</strong> günü <strong>${selPeriod}. saatte</strong> dersi yoktur.<br>Bu sınıfta bugünkü dersler <strong>${activeHours.join(', ')}.</strong> saatlerdedir.`;
+        alertDesc.innerHTML = `<strong>${selClass}</strong> sınıfının <strong>${selDay}</strong> günü <strong>${selPeriod}. saatte</strong> dersi yoktur.<br><span class="text-xs sm:text-sm font-semibold text-amber-900 mt-1 inline-block">Bu sınıfta bugünkü dersler <strong>${activeHours.join(', ')}.</strong> saatlerdedir.</span>`;
         alertButtons.innerHTML = buttonsHtml;
       } else {
         alertBox.classList.add('hidden');
@@ -289,48 +329,63 @@
 
       container.innerHTML = list.map(item => {
         return `
-          <div class="bg-white rounded-xl p-3 shadow-xs border border-slate-200/90 flex flex-col justify-between transition hover:border-slate-300">
-            <!-- ÜST SATIR: SINIF VE SAAT -->
-            <div class="flex items-center justify-between mb-1.5 pb-1.5 border-b border-slate-100">
-              <div class="flex items-center gap-1.5">
-                <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-md font-extrabold text-xs bg-slate-900 text-sky-300 font-mono">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border-2 border-slate-200/90 border-l-4 border-l-sky-500 hover:border-slate-300 transition flex flex-col justify-between">
+            
+            <!-- 1. KISIM: SINIF, GÜN VE SAAT BİLGİSİ -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center px-3 py-1 rounded-xl font-extrabold text-sm sm:text-base bg-slate-900 text-sky-300 font-mono-code shadow-xs">
                   ${item.c}
                 </span>
-                <span class="text-[11px] font-semibold text-slate-500">
+                <span class="text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">
                   ${item.d} • ${item.p}. Ders
                 </span>
               </div>
-              <span class="text-[10px] font-mono text-slate-400 font-medium">
-                ${item.t}
+              <span class="text-xs sm:text-sm font-mono-code text-slate-500 font-bold bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
+                ⏰ ${item.t}
               </span>
             </div>
 
-            <!-- ORTA SATIR: DERS ADI VE KODU -->
-            <div class="flex items-start justify-between gap-2 mb-1.5">
+            <!-- 2. KISIM: DERSİN ADI, KODU VE YER/ATÖLYE -->
+            <div class="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
               <div>
-                <div class="text-xs font-bold text-slate-900 leading-tight">${item.ln}</div>
-                <div class="text-[10px] font-mono font-bold text-indigo-600 mt-0.5 flex items-center gap-1.5">
-                  <span>${item.l}</span>
-                  ${item.grp ? `<span class="font-sans font-medium text-[9px] text-emerald-700 bg-emerald-50 px-1 py-0.2 rounded border border-emerald-200">${item.grp}</span>` : ''}
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
+                  ${item.ln}
+                </h4>
+                <div class="flex flex-wrap items-center gap-2 mt-1">
+                  <span class="text-xs sm:text-sm font-mono-code font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-lg">
+                    ${item.l}
+                  </span>
+                  ${item.grp ? `<span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">${item.grp}</span>` : ''}
                 </div>
               </div>
+
               ${item.r ? `
-                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200/80 flex-shrink-0">
-                  Yer: ${item.r}
-                </span>
+                <div class="sm:text-right flex-shrink-0">
+                  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs sm:text-sm font-bold bg-emerald-50 text-emerald-800 border-2 border-emerald-200">
+                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <span>Yer: ${item.r}</span>
+                  </span>
+                </div>
               ` : ''}
             </div>
 
-            <!-- ALT SATIR: ÖĞRETMEN BİLGİSİ -->
-            <div class="flex items-center justify-between bg-slate-50 px-2 py-1.5 rounded-lg border border-slate-200/60 mt-1">
-              <div class="flex items-center gap-1.5 truncate">
-                <svg class="w-3.5 h-3.5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                <span class="text-xs font-bold text-slate-800 truncate">${item.tn || 'Belirtilmemiş'}</span>
+            <!-- 3. KISIM: ÖĞRETMEN BİLGİ KUTUSU (AYRI BÖLÜM) -->
+            <div class="mt-1 pt-2.5 border-t border-slate-100 flex items-center justify-between bg-slate-50/90 px-3.5 py-2.5 rounded-xl border border-slate-200">
+              <div class="flex items-center gap-2 truncate">
+                <div class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center flex-shrink-0 font-bold text-xs">
+                  👨‍🏫
+                </div>
+                <div class="truncate">
+                  <span class="text-xs text-slate-400 font-semibold block leading-none">Ders Öğretmeni</span>
+                  <span class="text-xs sm:text-sm font-extrabold text-slate-800 truncate block mt-0.5">${item.tn || 'Belirtilmemiş'}</span>
+                </div>
               </div>
-              <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-white text-slate-700 border border-slate-200 shadow-2xs flex-shrink-0 ml-1">
+              <span class="text-xs sm:text-sm font-mono-code font-extrabold px-2.5 py-1 rounded-lg bg-white text-slate-800 border-2 border-slate-200 shadow-2xs flex-shrink-0 ml-2">
                 ${item.tc || '—'}
               </span>
             </div>
+
           </div>
         `;
       }).join('');
